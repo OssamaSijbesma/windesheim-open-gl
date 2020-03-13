@@ -93,10 +93,10 @@ GLuint vbo_vertices;
 GLuint vbo_colors;
 
 // Transformation
-GLfloat scalef = 0.0;
+GLfloat scalef = 1.0;
 GLfloat xTranslation = 0.0;
 GLfloat yTranslation = 0.0;
-GLfloat zRotation = 20.0;
+GLfloat zRotation = 0.0;
 
 
 //--------------------------------------------------------------------------------
@@ -108,41 +108,50 @@ void keyboardHandler(unsigned char key, int a, int b)
     switch (key)
     {
     case 27: glutExit(); break; // Esc
-    //case 70: glutFullScreen(); break; // f
+    case 70: glutFullScreen(); break; // f
 
-    case 61: scalef += 0.1f; break; // +
-    case 173: scalef -= 0.1f; break; // -
+    case '+': scalef += 0.1f; break; // +
+    case '-': scalef -= 0.1f; break; // -
+    }
+}
 
-    case 38: yTranslation += 0.1f; break; // up arrow
-    case 40: yTranslation -= 0.1f; break; // down arrow
+void keyboardHandler(int key, int a, int b)
+{
+    switch (key)
+    {
+    case GLUT_KEY_UP: yTranslation += 0.1f; break; // up arrow
+    case GLUT_KEY_DOWN: yTranslation -= 0.1f; break; // down arrow
 
-    case 39: xTranslation += 0.1f; break; // right arrow
-    case 37: xTranslation -= 0.1f; break; // left arrow
+    case GLUT_KEY_RIGHT: xTranslation += 0.1f; break; // right arrow
+    case GLUT_KEY_LEFT: xTranslation -= 0.1f; break; // left arrow
 
-    case 70: zRotation += 1.0f; break; // PgUp
-    case 34: zRotation -= 1.0f; break; //PgDn
+    case GLUT_KEY_PAGE_UP: zRotation += 1.0f; break; // PgUp
+    case GLUT_KEY_PAGE_DOWN: zRotation -= 1.0f; break; //PgDn
     }
 }
 
 
 //--------------------------------------------------------------------------------
-// Rendering
+// Transformation Matrix
 //--------------------------------------------------------------------------------
-void Translate(float s) 
+void Transformation(float s, float x, float y, float z) 
 {
-    glm::mat4 trans = glm::mat4(1.0f);
-    trans = glm::rotate(trans, glm::radians(s), glm::vec3(0.0f, 0.0f, 1.0f));
-    //glm::mat4 scaleTrans = glm::scale(glm::vec3(s,s,s));
+    // Transformation Matrices
+    glm::mat4 scaleTransformation = glm::mat4(1.0f);
+    glm::mat4 rotateTransformation = glm::mat4(1.0f);
+    glm::mat4 translateTranformation = glm::mat4(1.0f);
+
+    scaleTransformation = glm::scale(scaleTransformation, glm::vec3(s, s, s));
+    rotateTransformation = glm::rotate(rotateTransformation, glm::radians(z), glm::vec3(0.0f, 0.0f, 1.0f));
+    translateTranformation = glm::translate(translateTranformation, glm::vec3(x, y, 0.0));
 
     glBindBuffer(GL_ARRAY_BUFFER, vao);
     for (int i = 0; i < 16; i++)
         glBufferSubData(GL_ARRAY_BUFFER, i * (sizeof(glm::vec4) * 2),
-            sizeof(glm::vec4), &(trans * star[i].position));
+            sizeof(glm::vec4), &(translateTranformation * rotateTransformation * scaleTransformation * star[i].position));
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
-
-
 
 
 //--------------------------------------------------------------------------------
@@ -158,7 +167,7 @@ void Render()
     // Attach to program_id
     glUseProgram(program_id);
 
-    Translate(zRotation);
+    Transformation(scalef, xTranslation, yTranslation, zRotation);
 
     // Render using the vao
     glBindVertexArray(vao);
@@ -195,6 +204,7 @@ void InitGlutGlew(int argc, char** argv)
     glutCreateWindow("Hello OpenGL");
     glutDisplayFunc(Render);
     glutKeyboardFunc(keyboardHandler);
+    glutSpecialFunc(keyboardHandler);
     glewInit();
 }
 
@@ -260,8 +270,6 @@ int main(int argc, char** argv)
     InitBuffers();
 
     glutTimerFunc(DELTA, Render, 0);
-
-
 
     // Hide console window
     HWND hWnd = GetConsoleWindow();
