@@ -23,7 +23,6 @@ const char* vertexshader_name = "vertexshader.vsh";
 
 unsigned const int DELTA_TIME = 10;
 
-
 //--------------------------------------------------------------------------------
 // Variables
 //--------------------------------------------------------------------------------
@@ -34,26 +33,64 @@ GLuint vao;
 
 GLuint uniform_mvp;
 glm::mat4 mvp;
+glm::mat4 model;
+glm::mat4 view;
+glm::mat4 projection;
 
+bool animation = false;
+GLfloat scalef = 1.0;
+GLfloat xTranslation = 0.0;
+GLfloat yTranslation = 0.0;
+GLfloat zTranslation = 0.0;
+GLfloat xRotation = 0.0;
+GLfloat yRotation = 0.0;
+GLfloat zRotation = 0.0;
 
 //--------------------------------------------------------------------------------
 // Mesh variables
 //--------------------------------------------------------------------------------
 
-const GLfloat vertices[] =
-{
-    0.5, -0.5, 0.0,
-    -0.5, -0.5, 0.0,
-    0.0, 0.5, 0.0
+GLfloat vertices[] = {
+    // front
+    -1.0, -1.0, 1.0,
+    1.0, -1.0, 1.0,
+    1.0, 1.0, 1.0,
+    -1.0, 1.0, 1.0,
+    // back
+    -1.0, -1.0, -1.0,
+    1.0, -1.0, -1.0,
+    1.0, 1.0, -1.0,
+    -1.0, 1.0, -1.0
 };
 
-const GLfloat colors[] =
-{
-    1.0f, 0.0f, 0.0f,
-    0.0f, 1.0f, 0.0f,
-    0.0f, 0.0f, 1.0f
+GLfloat colors[] = {
+    // front colors
+    1.0, 1.0, 0.0,
+    0.0, 1.0, 0.0,
+    0.0, 0.0, 1.0,
+    1.0, 1.0, 1.0,
+    // back colors
+    0.0, 1.0, 1.0,
+    1.0, 0.0, 1.0,
+    1.0, 0.0, 0.0,
+    1.0, 1.0, 0.0
 };
 
+GLushort cube_elements[] = {
+
+    0,1,2,
+    0,2,3,
+    0,5,1,
+    0,4,5,
+    1,5,2,
+    2,5,6,
+    0,3,4,
+    3,7,4,
+    4,6,5,
+    4,7,6,
+    2,7,3,
+    2,6,7
+};
 
 //--------------------------------------------------------------------------------
 // Keyboard handling
@@ -61,8 +98,37 @@ const GLfloat colors[] =
 
 void keyboardHandler(unsigned char key, int a, int b)
 {
-    if (key == 27)
-        glutExit();
+    switch (key)
+    {
+    case 27: glutExit(); break; // Esc
+    case 70: glutFullScreen(); break; // f
+    case 32: animation = !animation; break;
+
+    case '+': model = glm::scale(model, glm::vec3(1.1, 1.1, 1.1)); break; // +
+    case '-': model = glm::scale(model, glm::vec3(0.9, 0.9, 0.9)); break; // -
+
+    case 'X': model = glm::rotate(model, glm::radians(1.0f), glm::vec3(1.0, 0.0, 0.0)); break;
+    case 'x': model = glm::rotate(model, glm::radians(-1.0f), glm::vec3(1.0, 0.0, 0.0)); break;
+    case 'Y': model = glm::rotate(model, glm::radians(1.0f), glm::vec3(0.0, 1.0, 0.0)); break;
+    case 'y': model = glm::rotate(model, glm::radians(-1.0f), glm::vec3(0.0, 1.0, 0.0)); break;
+    case 'Z': model = glm::rotate(model, glm::radians(1.0f), glm::vec3(0.0, 0.0, 1.0)); break;
+    case 'z': model = glm::rotate(model, glm::radians(-1.0f), glm::vec3(0.0, 0.0, 1.0)); break;
+    }
+}
+
+void keyboardHandler(int key, int a, int b)
+{
+    switch (key)
+    {
+    case GLUT_KEY_UP: model = glm::translate(model, glm::vec3(0.0, 1.0, 0.0)); break; // up arrow
+    case GLUT_KEY_DOWN: model = glm::translate(model, glm::vec3(0.0, -1.0, 0.0)); break; // down arrow
+
+    case GLUT_KEY_RIGHT: model = glm::translate(model, glm::vec3(1.0, 0.0, 0.0)); break; // right arrow
+    case GLUT_KEY_LEFT: model = glm::translate(model, glm::vec3(-1.0, 0.0, 0.0)); break; // left arrow
+
+    case GLUT_KEY_PAGE_UP: model = glm::translate(model, glm::vec3(0.0, 0.0, 1.0)); break; // PgUp
+    case GLUT_KEY_PAGE_DOWN: model = glm::translate(model, glm::vec3(0.0, 0.0, -1.0)); break; //PgDn
+    }
 }
 
 
@@ -79,28 +145,17 @@ void Render()
     // Attach to program_id
     glUseProgram(program_id);
 
-    // Send vao
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(
+        GL_TRIANGLES,
+        sizeof(cube_elements) / sizeof(GLushort),
+        GL_UNSIGNED_SHORT,
+        (GLvoid*)0);
     glBindVertexArray(0);
+
 
     // Swap buffers
     glutSwapBuffers();
-}
-
-void InitMatrices() 
-{
-    glm::mat4 model = glm::mat4();
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(1.0, 0.0, 2.0),
-        glm::vec3(0.0, 0.0, 0.0),
-        glm::vec3(0.0, 1.0, 0.0));
-    glm::mat4 projection = glm::perspective(
-        glm::radians(45.0f),
-        1.0f * WIDTH / HEIGHT, 0.1f,
-        20.0f);
-
-    mvp = projection * view * model;
 }
 
 //------------------------------------------------------------
@@ -112,6 +167,11 @@ void Render(int n)
 {
     Render();
     glutTimerFunc(DELTA_TIME, Render, 0);
+
+    if (animation) model = glm::rotate(model, glm::radians(0.5f), glm::vec3(0.0, 1.0, 0.0));
+
+    mvp = projection * view * model;
+    glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(projection * view * model));
 }
 
 
@@ -128,6 +188,7 @@ void InitGlutGlew(int argc, char** argv)
     glutCreateWindow("Hello OpenGL");
     glutDisplayFunc(Render);
     glutKeyboardFunc(keyboardHandler);
+    glutSpecialFunc(keyboardHandler);
     glutTimerFunc(DELTA_TIME, Render, 0);
 
     glewInit();
@@ -152,6 +213,27 @@ void InitShaders()
 
 
 //------------------------------------------------------------
+// void InitMatrices()
+// Initializes the matrices
+//------------------------------------------------------------
+
+void InitMatrices()
+{
+    model = glm::mat4();
+    view = glm::lookAt(
+        glm::vec3(3.0, 2.0, 5.0),
+        glm::vec3(0.0, 0.0, 0.0),
+        glm::vec3(0.0, 1.0, 0.0));
+    projection = glm::perspective(
+        glm::radians(45.0f),
+        1.0f * WIDTH / HEIGHT, 0.1f,
+        20.0f);
+
+    mvp = projection * view * model;
+}
+
+
+//------------------------------------------------------------
 // void InitBuffers()
 // Allocates and fills buffers
 //------------------------------------------------------------
@@ -162,6 +244,15 @@ void InitBuffers()
     GLuint color_id;
     GLuint vbo_vertices;
     GLuint vbo_colors;
+    GLuint ibo_cube_elements;
+
+    // ibo
+    glGenBuffers(1, &ibo_cube_elements);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_cube_elements);
+    glBufferData(
+        GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_elements),
+        cube_elements, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     // vbo for vertices
     glGenBuffers(1, &vbo_vertices);
@@ -184,6 +275,8 @@ void InitBuffers()
 
     // Bind to vao
     glBindVertexArray(vao);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_cube_elements);
 
     // Bind vertices to vao
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
@@ -215,6 +308,11 @@ int main(int argc, char** argv)
     InitShaders();
     InitMatrices();
     InitBuffers();
+
+    glutTimerFunc(DELTA_TIME, Render, 0);
+
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
     // Hide console window
     HWND hWnd = GetConsoleWindow();
