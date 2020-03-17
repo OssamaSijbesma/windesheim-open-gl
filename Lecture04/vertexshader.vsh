@@ -1,9 +1,34 @@
 #version 430 core
 
+uniform mat4 mv;
+uniform mat4 projection;
+uniform vec3 light_pos;
+
 in vec3 position;
-uniform mat4 mvp;
+in vec3 normal;
+
+out VS_OUT
+{
+   vec3 N;
+   vec3 L;
+   vec3 V;
+} vs_out;
+
 
 void main()
 {
-    gl_Position = mvp * vec4(position, 1.0);
+    // Calculate view-space coordinate
+    vec4 P = mv * vec4(position, 1.0);
+
+    // Calculate normal in view-space
+    vs_out.N = mat3(mv) * normal;
+
+    // Calculate light vector
+    vs_out.L = light_pos - P.xyz;
+
+    // Calculate view vector;
+    vs_out.V = -P.xyz;
+
+    // Calculate the clip-space position of each vertex
+    gl_Position = projection * P;
 }

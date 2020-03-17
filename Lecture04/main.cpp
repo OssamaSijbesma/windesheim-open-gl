@@ -32,20 +32,28 @@ unsigned const int DELTA_TIME = 10;
 
 // ID's
 GLuint program_id;
+GLuint normal_id;
 GLuint vao;
 
 // Uniform ID's
-GLuint uniform_mvp;
+GLuint uniform_mv;
 
 // Matrices
 glm::mat4 model, view, projection;
-glm::mat4 mvp;
+glm::mat4 mv;
 
 vector<glm::vec3> normals;
 vector<glm::vec3> vertices;
 vector<glm::vec2> uvs;
 
 bool res = loadOBJ("Objects/teapot.obj", vertices, uvs, normals);
+
+glm::vec3 light_position;
+glm::vec3 ambient_color;
+glm::vec3 diffuse_color;
+glm::vec3 specular;
+float power;
+
 
 //--------------------------------------------------------------------------------
 // Keyboard handling
@@ -72,10 +80,10 @@ void Render()
 
     // Do transformation
     model = glm::rotate(model, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
-    mvp = projection * view * model;
+    mv = view * model;
 
     // Send mvp
-    glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+    glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
 
     // Send vao
     glBindVertexArray(vao);
@@ -135,6 +143,20 @@ void InitShaders()
 
 
 //------------------------------------------------------------
+// void InitShaders()
+// Initializes the fragmentshader and vertexshader
+//------------------------------------------------------------
+
+void InitLights()
+{
+    light_position = glm::vec3(4, 4, 0);
+    ambient_color = glm::vec3(0.2, 0.2, 0.0);
+    diffuse_color = glm::vec3(0.5, 0.0, 0.0);
+    specular = glm::vec3(1.0f);
+    power = 1;
+}
+
+//------------------------------------------------------------
 // void InitMatrices()
 //------------------------------------------------------------
 
@@ -149,7 +171,7 @@ void InitMatrices()
         glm::radians(45.0f),
         1.0f * WIDTH / HEIGHT, 0.1f,
         20.0f);
-    mvp = projection * view * model;
+    mv = view * model;
 }
 
 
@@ -163,6 +185,8 @@ void InitBuffers()
     GLuint position_id, color_id;
     GLuint vbo_vertices, vbo_colors;
     GLuint ibo_elements;
+    GLuint vbo_normals;
+
 
     glGenBuffers(1, &vbo_vertices);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
@@ -170,8 +194,18 @@ void InitBuffers()
         GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    // vbo for normals
+    glGenBuffers(1, &vbo_normals);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+    glBufferData(GL_ARRAY_BUFFER,
+        normals.size() * sizeof(glm::vec3),
+        &normals[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
     // Get vertex attributes
     position_id = glGetAttribLocation(program_id, "position");
+    normal_id = glGetAttribLocation(program_id, "normal");
 
     // Allocate memory for vao
     glGenVertexArrays(1, &vao);
@@ -185,18 +219,39 @@ void InitBuffers()
     glEnableVertexAttribArray(position_id);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    // Bind normals to vao
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+    glVertexAttribPointer(normal_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(normal_id);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     // Stop bind to vao
     glBindVertexArray(0);
 
     // Make uniform vars
-    uniform_mvp = glGetUniformLocation(program_id, "mvp");
+    uniform_mv = glGetUniformLocation(program_id, "mv");
+    GLuint uniform_proj = glGetUniformLocation(program_id, "projection");
+    GLuint uniform_light_pos = glGetUniformLocation(program_id, "light_pos");
+    GLuint uniform_material_ambient = glGetUniformLocation(program_id, "mat_ambient");
+    GLuint uniform_material_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
+    GLuint uniform_specular = glGetUniformLocation(program_id, "mat_specular");
+    GLuint uniform_material_power = glGetUniformLocation(program_id, "mat_power");
 
     // Define model
-    mvp = projection * view * model;
+    mv = view * model;
 
     // Send mvp
     glUseProgram(program_id);
-    glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+
+    // Fill uniform vars
+    glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+    glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
+    glUniform3fv(uniform_light_pos, 1, glm::value_ptr(light_position));
+    glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(ambient_color));
+    glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(diffuse_color));
+    glUniform3fv(uniform_specular, 1, glm::value_ptr(specular));
+    glUniform1f(uniform_material_power, power);
+
 }
 
 
@@ -205,10 +260,11 @@ int main(int argc, char** argv)
     InitGlutGlew(argc, argv);
     InitShaders();
     InitMatrices();
+    InitLights();
     InitBuffers();
 
-    //glEnable(GL_DEPTH_TEST);
-    //glDisable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
 
     // Hide console window
     HWND hWnd = GetConsoleWindow();
