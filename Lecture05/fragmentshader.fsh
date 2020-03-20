@@ -1,5 +1,7 @@
 #version 430 core
 
+in vec2 UV;
+
 in VS_OUT
 {
    vec3 N;
@@ -11,6 +13,7 @@ uniform vec3 mat_ambient;
 uniform vec3 mat_diffuse;
 uniform vec3 mat_specular;
 uniform float mat_power;
+uniform sampler2D texsampler;
 
 void main()
 {
@@ -23,7 +26,9 @@ void main()
     vec3 R = reflect(-L, N);
 
     // Compute the diffuse component for each fragment
-    vec3 diffuse = max(dot(N, L), 0.0) * mat_diffuse;
+    //vec3 diffuse = max(dot(N, L), 0.0) * mat_diffuse;
+
+    vec3 diffuse = max(dot(N, L), 0.0) * texture2D(texsampler, UV).rgb * mat_diffuse;
 
     // Compute the specular component for each fragment
     vec3 specular = pow(max(dot(R, V), 0.0), mat_power) * mat_specular;

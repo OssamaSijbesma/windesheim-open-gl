@@ -10,6 +10,7 @@
 
 #include "glsl.h"
 #include "objloader.h"
+#include "texture.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ unsigned const int DELTA_TIME = 10;
 // ID's
 GLuint program_id;
 GLuint normal_id;
+GLuint texture_id;
 GLuint vao;
 
 // Uniform ID's
@@ -182,11 +184,11 @@ void InitMatrices()
 
 void InitBuffers()
 {
-    GLuint position_id, color_id;
+    GLuint position_id, uv_id;
     GLuint vbo_vertices, vbo_colors;
     GLuint ibo_elements;
     GLuint vbo_normals;
-
+    GLuint vbo_uvs;
 
     glGenBuffers(1, &vbo_vertices);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
@@ -202,10 +204,19 @@ void InitBuffers()
         &normals[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    // vbo for uvs
+    glGenBuffers(1, &vbo_uvs);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
+    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2),
+        &uvs[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
     // Get vertex attributes
     position_id = glGetAttribLocation(program_id, "position");
     normal_id = glGetAttribLocation(program_id, "normal");
+    uv_id = glGetAttribLocation(program_id, "uv");
+
 
     // Allocate memory for vao
     glGenVertexArrays(1, &vao);
@@ -223,6 +234,12 @@ void InitBuffers()
     glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
     glVertexAttribPointer(normal_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(normal_id);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // Bind uvs to vao
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
+    glVertexAttribPointer(uv_id, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(uv_id);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // Stop bind to vao
@@ -254,6 +271,11 @@ void InitBuffers()
 
 }
 
+void InitObjects() 
+{
+    texture_id = loadBMP("Textures/Yellobrk.bmp");
+}
+
 
 int main(int argc, char** argv)
 {
@@ -261,6 +283,7 @@ int main(int argc, char** argv)
     InitShaders();
     InitMatrices();
     InitLights();
+    InitObjects();
     InitBuffers();
 
     glEnable(GL_DEPTH_TEST);
