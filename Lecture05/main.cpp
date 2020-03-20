@@ -26,7 +26,7 @@ const char* vertexshader_name = "vertexshader.vsh";
 
 unsigned const int DELTA_TIME = 10;
 
-const int ARRAY_SIZE = 2;
+const int ARRAY_SIZE = 3;
 
 
 //--------------------------------------------------------------------------------
@@ -39,6 +39,12 @@ GLuint texture_id[ARRAY_SIZE];
 
 // Uniform ID's
 GLuint uniform_mv;
+GLuint uniform_proj;
+GLuint uniform_light_pos;
+GLuint uniform_material_ambient;
+GLuint uniform_material_diffuse;
+GLuint uniform_specular;
+GLuint uniform_material_power;
 
 // Matrices
 glm::mat4 view;
@@ -55,7 +61,8 @@ vector<glm::vec3> vertices[ARRAY_SIZE];
 vector<glm::vec2> uvs[ARRAY_SIZE];
 
 bool obj0 = loadOBJ("Objects/teapot.obj", vertices[0], uvs[0], normals[0]);
-bool obj1 = loadOBJ("Objects/torus.obj", vertices[1], uvs[1], normals[1]);
+bool obj1 = loadOBJ("Objects/box.obj", vertices[1], uvs[1], normals[1]);
+bool obj2 = loadOBJ("Objects/cylinder32.obj", vertices[2], uvs[2], normals[2]);
 
 // Attributes
 glm::vec3 light_position[ARRAY_SIZE];
@@ -90,12 +97,25 @@ void Render()
 
     for (int i = 0; i < ARRAY_SIZE; i++)
     {
+        // Fill uniform vars
+        glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv[i]));
+        glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniform3fv(uniform_light_pos, 1, glm::value_ptr(light_position[i]));
+        glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(ambient_color[i]));
+        glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(diffuse_color[i]));
+        glUniform3fv(uniform_specular, 1, glm::value_ptr(specular[i]));
+        glUniform1f(uniform_material_power, power[i]);
+
         // Do transformation
         model[i] = glm::rotate(model[i], 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
         mv[i] = view * model[i];
 
         // Send mvp
         glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv[i]));
+
+        // load the right texture
+        glBindTexture(GL_TEXTURE_2D, texture_id[i]);
+
 
         // Send vao
         glBindVertexArray(vao[i]);
@@ -162,14 +182,24 @@ void InitShaders()
 
 void InitLights()
 {
-    for (int i = 0; i < ARRAY_SIZE; i++)
-    {
-        light_position[i] = glm::vec3(4, 4, 0);
-        ambient_color[i] = glm::vec3(0.2, 0.2, 0.0);
-        diffuse_color[i] = glm::vec3(0.5, 0.0, 0.0);
-        specular[i] = glm::vec3(1.0f);
-        power[i] =  5;
-    }
+
+    light_position[0] = glm::vec3(4, 4, 4);
+    ambient_color[0] = glm::vec3(2.0, 0.0, 0.0);
+    diffuse_color[0] = glm::vec3(2.0, 2.0, 0.0);
+    specular[0] = glm::vec3(1.0f);
+    power[0] = 1024;
+
+    light_position[1] = glm::vec3(4, 4, 4);
+    ambient_color[1] = glm::vec3(1.0, 1.0, 1.0);
+    diffuse_color[1] = glm::vec3(0.0, 0.0, 0.0);
+    specular[1] = glm::vec3(1.0f);
+    power[1] = 1024;
+
+    light_position[2] = glm::vec3(4, 4, 4);
+    ambient_color[2] = glm::vec3(0.0, 0.0, 5.0);
+    diffuse_color[2] = glm::vec3(5.0, 0.0, 0.0);
+    specular[2] = glm::vec3(1.0f);
+    power[2] = 1024;
 }
 
 //------------------------------------------------------------
@@ -188,11 +218,14 @@ void InitMatrices()
         1.0f * WIDTH / HEIGHT, 0.1f,
         20.0f);
 
-    for (int i = 0; i < ARRAY_SIZE; i++)
-    {
-        model[i] = glm::mat4();
-        mv[i] = view * model[i];
-    }
+
+        model[0] = glm::mat4();
+        model[1] = glm::translate(glm::mat4(), glm::vec3(3.0, 0.0, 0.0));
+        model[2] = glm::translate(glm::mat4(), glm::vec3(-3.0, 0.0, 0.0));
+
+        mv[0] = view * model[0];
+        mv[1] = view * model[1];
+        mv[2] = view * model[2];
 }
 
 
@@ -213,7 +246,7 @@ void InitBuffers()
     GLuint vbo_normals;
     GLuint vbo_uvs;
 
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < ARRAY_SIZE; i++)
     {
 
         // vbo for vertices
@@ -269,12 +302,12 @@ void InitBuffers()
 
         // Make uniform vars
         uniform_mv = glGetUniformLocation(program_id, "mv");
-        GLuint uniform_proj = glGetUniformLocation(program_id, "projection");
-        GLuint uniform_light_pos = glGetUniformLocation(program_id, "light_pos");
-        GLuint uniform_material_ambient = glGetUniformLocation(program_id, "mat_ambient");
-        GLuint uniform_material_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
-        GLuint uniform_specular = glGetUniformLocation(program_id, "mat_specular");
-        GLuint uniform_material_power = glGetUniformLocation(program_id, "mat_power");
+        uniform_proj = glGetUniformLocation(program_id, "projection");
+        uniform_light_pos = glGetUniformLocation(program_id, "light_pos");
+        uniform_material_ambient = glGetUniformLocation(program_id, "mat_ambient");
+        uniform_material_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
+        uniform_specular = glGetUniformLocation(program_id, "mat_specular");
+        uniform_material_power = glGetUniformLocation(program_id, "mat_power");
 
         // Define model
         mv[i] = view * model[i];
@@ -282,21 +315,14 @@ void InitBuffers()
         // Send mvp
         glUseProgram(program_id);
 
-        // Fill uniform vars
-        glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv[i]));
-        glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
-        glUniform3fv(uniform_light_pos, 1, glm::value_ptr(light_position[0]));
-        glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(ambient_color[0]));
-        glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(diffuse_color[0]));
-        glUniform3fv(uniform_specular, 1, glm::value_ptr(specular[0]));
-        glUniform1f(uniform_material_power, power[0]);
+
     }
 }
 
 void InitObjects() 
 {
     texture_id[0] = loadBMP("Textures/Yellobrk.bmp");
-    texture_id[1] = loadBMP("Textures/uvTemplate.bmp");
+    texture_id[2] = loadBMP("Textures/Yellobrk.bmp");
 
 }
 
