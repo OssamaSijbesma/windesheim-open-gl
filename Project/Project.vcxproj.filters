@@ -17,6 +17,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="teapot.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="box.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,6 +40,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="teapot.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="box.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,6 +58,12 @@
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{04b37cd2-fd1e-4e5d-a923-99e7fba21f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\models">
+      <UniqueIdentifier>{c3be10fe-593d-48a5-b688-5945e66d501a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\models">
+      <UniqueIdentifier>{6c711e3a-2029-48e8-99ec-20379ef3883d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

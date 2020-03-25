@@ -31,18 +31,14 @@ struct texture {
 	bool active;
 };
 
-
 class object
 {
-	// mat/geo/tex
-
 public:
 	object();
 	~object();
 	geometry* get_geometry();
 	material* get_material();
 	texture* get_texture();
-
 protected:
 	texture* tex;
 	geometry* geo;

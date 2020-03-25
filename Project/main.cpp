@@ -14,9 +14,9 @@
 #include "object.h"
 
 #include "teapot.h"
+#include "camera.h"
 
 using namespace std;
-
 
 //--------------------------------------------------------------------------------
 // Consts
@@ -29,8 +29,7 @@ const int ARRAY_SIZE = 3;
 const char* fragshader_name = "fragmentshader.fsh";
 const char* vertexshader_name = "vertexshader.vsh";
 
-
-
+camera cam;
 
 //--------------------------------------------------------------------------------
 // Variables
@@ -62,13 +61,15 @@ GLuint vao;
 
 
 //--------------------------------------------------------------------------------
-// Keyboard handling
+// Keyboard Wrapper
 //--------------------------------------------------------------------------------
 
-void keyboardHandler(unsigned char key, int a, int b)
+void KeyboardProxy(unsigned char key, int a, int b)
 {
     if (key == 27)
         glutExit();
+
+    cam.processInput(key, a, b);
 }
 
 
@@ -88,7 +89,6 @@ void Render()
     material* material = obj->get_material();
     texture* texture = obj->get_texture();
 
-
     // Fill uniform vars
     glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
     glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
@@ -98,9 +98,7 @@ void Render()
     glUniform3fv(uniform_specular, 1, glm::value_ptr(material->specular));
     glUniform1f(uniform_material_power, material->power);
 
-    // Do transformation
-    model = glm::rotate(model, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
-    mv = view * model;
+
 
     // Send mvp
     glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
@@ -126,6 +124,10 @@ void Render()
 
 void Render(int n)
 {
+    // Set camera model and view matrix
+    mv = cam.getViewModel();
+
+    // Render
     Render();
     glutTimerFunc(DELTA_TIME, Render, 0);
 }
@@ -139,14 +141,13 @@ void Render(int n)
 void InitGlutGlew(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutSetOption(GLUT_MULTISAMPLE, 8);
+    glutSetOption(GLUT_MULTISAMPLE, 32);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Project OpenGL");
     glutDisplayFunc(Render);
-    glutKeyboardFunc(keyboardHandler);
+    glutKeyboardFunc(KeyboardProxy);
     glutTimerFunc(DELTA_TIME, Render, 0);
-
     glewInit();
 }
 
@@ -175,18 +176,10 @@ void InitShaders()
 
 void InitMatrices()
 {
-    view = glm::lookAt(
-        glm::vec3(2.0, 2.0, 7.0),  // eye
-        glm::vec3(0.0, 0.0, 0.0),  // center
-        glm::vec3(0.0, 1.0, 0.0));  // up
-
     projection = glm::perspective(
         glm::radians(45.0f),
         1.0f * WIDTH / HEIGHT, 0.1f,
         20.0f);
-
-        model = glm::mat4();
-        mv = view * model;
 }
 
 
@@ -206,7 +199,6 @@ void InitBuffers()
     GLuint vbo_vertices;
     GLuint vbo_normals;
     GLuint vbo_uvs;
-
 
     geometry* g = obj->get_geometry();
 
@@ -270,9 +262,6 @@ void InitBuffers()
     uniform_specular = glGetUniformLocation(program_id, "mat_specular");
     uniform_material_power = glGetUniformLocation(program_id, "mat_power");
 
-    // Define model
-    mv = view * model;
-
     // Send mvp
     glUseProgram(program_id);
 }
@@ -282,7 +271,6 @@ void InitObjects()
     teapot* tp = new teapot();
      obj = tp;
 }
-
 
 int main(int argc, char** argv)
 {
