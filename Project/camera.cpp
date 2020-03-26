@@ -2,56 +2,76 @@
 
 camera::camera()
 {
+
+	// movement eye and center change
+	// looking only center
 	speed = 0.5f;
+	yaw = 0;
+	pitch = 0;
+
+	position = new glm::vec3(0.0, 0.0, 0.0);
+	direction = new glm::vec3(0.0, 0.0, 0.0);
+
 	view = new glm::mat4(glm::lookAt(
 		glm::vec3(10.0, 2.0, 0.0),  // eye
 		glm::vec3(0.0, 3.0, 0.0),	// center
 		glm::vec3(0.0, 1.0, 0.0)	// up
-	));  
-
-	model = new glm::mat4();
+	));
 }
 
 camera::~camera()
 {
 	delete view;
-	delete model;
 }
 
-glm::mat4 camera::getViewModel()
+glm::mat4 camera::get_view()
 {
-	return *model * *view;
+	*position = glm::vec3(x_pos, 2.0f, z_pos);
+
+	*direction = glm::vec3(
+		cos(glm::radians(yaw)) * cos(glm::radians(pitch)), 
+		sin(glm::radians(pitch)), 
+		sin(glm::radians(yaw)) * cos(glm::radians(pitch))
+	);
+
+	*view = glm::mat4(glm::lookAt(
+		*position,					//eye
+		*direction,					//center
+		glm::vec3(0.0, 1.0, 0.0)	// up
+	));
+
+	return  *view;
 }
 
-void camera::processInput(unsigned char key, int a, int b)
+void camera::process_input(unsigned char key, int a, int b)
 {
 	switch (key)
 	{
 
 	case'w':
-		*model = glm::translate(*model, glm::vec3(0.0, 0.0, speed));
+		z_pos += speed;
 		break;
 	case'a':
-		*model = glm::translate(*model, glm::vec3(speed, 0.0, 0.0));
+		x_pos += speed;
 		break;
 	case's':
-		*model = glm::translate(*model, glm::vec3(0.0, 0.0, -speed));
+		z_pos -= speed;
 		break;
 	case'd':
-		*model = glm::translate(*model, glm::vec3(-speed, 0.0, 0.0));
+		x_pos -= speed;
 		break;
 
 	case'i':
-		*model = glm::rotate(*model, glm::radians(-1.0f), glm::vec3(1.0, 0.0, 0.0));
+		pitch += 10.0f;
 		break;
 	case'j':
-		*model = glm::rotate(*model, glm::radians(-1.0f), glm::vec3(0.0, 1.0, 0.0));
+		yaw += 10.0f;
 		break;
 	case'k':
-		*model = glm::rotate(*model, glm::radians(1.0f), glm::vec3(1.0, 0.0, 0.0));
+		pitch -= 10.0f;
 		break;
 	case'l':
-		*model = glm::rotate(*model, glm::radians(1.0f), glm::vec3(0.0, 1.0, 0.0));
+		yaw -= 10.0f;
 		break;
 	}
 }

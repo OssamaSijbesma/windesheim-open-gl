@@ -5,6 +5,7 @@ object::object()
 	geo = nullptr;
 	mat = nullptr;
 	tex = nullptr;
+	model = new glm::mat4();
 }
 
 object::~object()
@@ -15,6 +16,7 @@ object::~object()
 		delete mat;	
 	if (tex != nullptr)
 		delete tex;
+	delete model;
 }
 
 geometry* object::get_geometry()
@@ -30,4 +32,9 @@ material* object::get_material()
 texture* object::get_texture()
 {
 	return tex;
+}
+
+glm::mat4 object::get_model()
+{
+	return *model;
 }

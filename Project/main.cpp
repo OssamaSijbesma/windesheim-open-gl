@@ -51,9 +51,10 @@ GLuint uniform_material_power;
 teapot* obj;
 
 // Matrices
-glm::mat4 view;
-glm::mat4 projection;
-glm::mat4 model;
+glm::mat4 projection = glm::perspective(
+    glm::radians(45.0f),
+    1.0f * WIDTH / HEIGHT, 0.1f,
+    20.0f);
 glm::mat4 mv;
 
 // vao
@@ -69,7 +70,7 @@ void KeyboardProxy(unsigned char key, int a, int b)
     if (key == 27)
         glutExit();
 
-    cam.processInput(key, a, b);
+    cam.process_input(key, a, b);
 }
 
 
@@ -125,7 +126,7 @@ void Render()
 void Render(int n)
 {
     // Set camera model and view matrix
-    mv = cam.getViewModel();
+    mv = obj->get_model() * cam.get_view();
 
     // Render
     Render();
@@ -141,7 +142,7 @@ void Render(int n)
 void InitGlutGlew(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutSetOption(GLUT_MULTISAMPLE, 32);
+    glutSetOption(GLUT_MULTISAMPLE, 16);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Project OpenGL");
@@ -166,20 +167,6 @@ void InitShaders()
     GLuint fsh_id = glsl::makeFragmentShader(fragshader);
 
     program_id = glsl::makeShaderProgram(vsh_id, fsh_id);
-}
-
-
-
-//------------------------------------------------------------
-// void InitMatrices()
-//------------------------------------------------------------
-
-void InitMatrices()
-{
-    projection = glm::perspective(
-        glm::radians(45.0f),
-        1.0f * WIDTH / HEIGHT, 0.1f,
-        20.0f);
 }
 
 
@@ -276,7 +263,6 @@ int main(int argc, char** argv)
 {
     InitGlutGlew(argc, argv);
     InitShaders();
-    InitMatrices();
     InitObjects();
     InitBuffers();
 

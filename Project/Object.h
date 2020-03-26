@@ -39,8 +39,10 @@ public:
 	geometry* get_geometry();
 	material* get_material();
 	texture* get_texture();
+	glm::mat4 get_model();
 protected:
 	texture* tex;
 	geometry* geo;
 	material* mat;
+	glm::mat4* model;
 };
