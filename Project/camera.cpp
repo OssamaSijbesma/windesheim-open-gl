@@ -1,43 +1,36 @@
 #include "camera.h"
+#include <iostream>
 
 camera::camera()
 {
-
-	// movement eye and center change
-	// looking only center
-	speed = 0.5f;
-	yaw = 0;
-	pitch = 0;
-
-	position = new glm::vec3(0.0, 0.0, 0.0);
-	direction = new glm::vec3(0.0, 0.0, 0.0);
-
-	view = new glm::mat4(glm::lookAt(
-		glm::vec3(10.0, 2.0, 0.0),  // eye
-		glm::vec3(0.0, 3.0, 0.0),	// center
-		glm::vec3(0.0, 1.0, 0.0)	// up
-	));
+	yaw = 0.0f;
+	pitch = 0.0f;
+	position = new glm::vec3(0.0f, 2.0f, 0.0f);
+	direction = new glm::vec3(0.0f, 0.0f, 0.0f);
+	view = new glm::mat4();
 }
 
 camera::~camera()
 {
+	delete position;
+	delete direction;
 	delete view;
 }
 
 glm::mat4 camera::get_view()
 {
-	*position = glm::vec3(x_pos, 2.0f, z_pos);
-
+	// Set the direction with the yaw and pitch coordinates.
 	*direction = glm::vec3(
 		cos(glm::radians(yaw)) * cos(glm::radians(pitch)), 
 		sin(glm::radians(pitch)), 
 		sin(glm::radians(yaw)) * cos(glm::radians(pitch))
 	);
 
+	// Set the view with the position and direction.
 	*view = glm::mat4(glm::lookAt(
-		*position,					//eye
-		*direction,					//center
-		glm::vec3(0.0, 1.0, 0.0)	// up
+		*position,									//eye, the position of the camera.
+		*position + glm::normalize(*direction),		//center, the direction the camera is pointed at.
+		glm::vec3(0.0, 1.0, 0.0)					// up, no need to change.
 	));
 
 	return  *view;
@@ -45,33 +38,34 @@ glm::mat4 camera::get_view()
 
 void camera::process_input(unsigned char key, int a, int b)
 {
+	// For movement we change the eye and center position.
+	// For the direction we are looking at we only need to change the center.
 	switch (key)
 	{
+	case'w': // Forward
+		*position += glm::vec3(direction->x, 0.0f, direction->z) * WALK_SPEED;
+		break;
+	case's': // Backward
+		*position -= glm::vec3(direction->x, 0.0f, direction->z) * WALK_SPEED;
+		break;
+	case'a': // Left
+		*position += glm::cross(glm::vec3(0.0, 1.0, 0.0), glm::vec3(direction->x, 0.0f, direction->z)) * WALK_SPEED;
+		break;
+	case'd': // Right
+		*position += glm::cross(glm::vec3(direction->x, 0.0f, direction->z), glm::vec3(0.0, 1.0, 0.0)) * WALK_SPEED;
+		break;
 
-	case'w':
-		z_pos += speed;
+	case'i': // Look up
+		pitch += TURN_SPEED;
 		break;
-	case'a':
-		x_pos += speed;
+	case'k': // Look down
+		pitch -= TURN_SPEED;
 		break;
-	case's':
-		z_pos -= speed;
+	case'j': // Look left
+		yaw += TURN_SPEED;
 		break;
-	case'd':
-		x_pos -= speed;
-		break;
-
-	case'i':
-		pitch += 10.0f;
-		break;
-	case'j':
-		yaw += 10.0f;
-		break;
-	case'k':
-		pitch -= 10.0f;
-		break;
-	case'l':
-		yaw -= 10.0f;
+	case'l': // Look right
+		yaw -= TURN_SPEED;
 		break;
 	}
 }
