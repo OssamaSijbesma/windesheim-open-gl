@@ -40,6 +40,10 @@ public:
 	material* get_material();
 	texture* get_texture();
 	glm::mat4 get_model();
+	void position(float x, float y, float z);
+	void rotate(float degrees);
+	GLuint vao;
+
 protected:
 	texture* tex;
 	geometry* geo;

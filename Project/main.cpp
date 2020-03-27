@@ -15,6 +15,8 @@
 
 #include "teapot.h"
 #include "camera.h"
+#include "plane.h"
+#include <list>
 
 using namespace std;
 
@@ -48,7 +50,8 @@ GLuint uniform_material_diffuse;
 GLuint uniform_specular;
 GLuint uniform_material_power;
 
-teapot* obj;
+std::list<object*> objects;
+object* obj;
 
 // Matrices
 glm::mat4 projection = glm::perspective(
@@ -56,9 +59,6 @@ glm::mat4 projection = glm::perspective(
     1.0f * WIDTH / HEIGHT, 0.1f,
     20.0f);
 glm::mat4 mv;
-
-// vao
-GLuint vao;
 
 
 //--------------------------------------------------------------------------------
@@ -86,33 +86,37 @@ void Render()
 
     // Attach to program_id
     glUseProgram(program_id);
-    
-    material* material = obj->get_material();
-    texture* texture = obj->get_texture();
 
-    // Fill uniform vars
-    glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
-    glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
-    glUniform3fv(uniform_light_pos, 1, glm::value_ptr(material->light_position));
-    glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(material->ambient_color));
-    glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(material->diffuse_color));
-    glUniform3fv(uniform_specular, 1, glm::value_ptr(material->specular));
-    glUniform1f(uniform_material_power, material->power);
+    for (object* obj : objects)
+    {
 
+        // Set camera model and view matrix
+        mv = obj->get_model() * cam.get_view();
 
+        material* material = obj->get_material();
+        texture* texture = obj->get_texture();
 
-    // Send mvp
-    glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+        // Fill uniform vars
+        glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+        glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniform3fv(uniform_light_pos, 1, glm::value_ptr(material->light_position));
+        glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(material->ambient_color));
+        glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(material->diffuse_color));
+        glUniform3fv(uniform_specular, 1, glm::value_ptr(material->specular));
+        glUniform1f(uniform_material_power, material->power);
 
-    // load the right texture
-    glBindTexture(GL_TEXTURE_2D, texture->texture_id);
+        // Send mvp
+        glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
 
+        // load the right texture
+        glBindTexture(GL_TEXTURE_2D, texture->texture_id);
 
-    // Send vao
-    glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, obj->get_geometry()->vertices.size());
-    glBindVertexArray(0);
+        // Send vao
+        glBindVertexArray(obj->vao);
+        glDrawArrays(GL_TRIANGLES, 0, obj->get_geometry()->vertices.size());
+        glBindVertexArray(0);
 
+    }
 
     glutSwapBuffers();
 }
@@ -125,9 +129,6 @@ void Render()
 
 void Render(int n)
 {
-    // Set camera model and view matrix
-    mv = obj->get_model() * cam.get_view();
-
     // Render
     Render();
     glutTimerFunc(DELTA_TIME, Render, 0);
@@ -187,58 +188,63 @@ void InitBuffers()
     GLuint vbo_normals;
     GLuint vbo_uvs;
 
-    geometry* g = obj->get_geometry();
+    for (object* obj : objects)
+    {
 
-    // vbo for vertices
-    glGenBuffers(1, &vbo_vertices);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
-    glBufferData(GL_ARRAY_BUFFER,
-        g->vertices.size() * sizeof(glm::vec3),
-        &g->vertices[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+        geometry* g = obj->get_geometry();
 
-    // vbo for normals
-    glGenBuffers(1, &vbo_normals);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
-    glBufferData(GL_ARRAY_BUFFER,
-        g->normals.size() * sizeof(glm::vec3),
-        &g->normals[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // vbo for vertices
+        glGenBuffers(1, &vbo_vertices);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+        glBufferData(GL_ARRAY_BUFFER,
+            g->vertices.size() * sizeof(glm::vec3),
+            &g->vertices[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // vbo for uvs
-    glGenBuffers(1, &vbo_uvs);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
-    glBufferData(GL_ARRAY_BUFFER,
-        g->uvs.size() * sizeof(glm::vec2),
-        &g->uvs[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // vbo for normals
+        glGenBuffers(1, &vbo_normals);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+        glBufferData(GL_ARRAY_BUFFER,
+            g->normals.size() * sizeof(glm::vec3),
+            &g->normals[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // Allocate memory for vao
-    glGenVertexArrays(1, &vao);
+        // vbo for uvs
+        glGenBuffers(1, &vbo_uvs);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
+        glBufferData(GL_ARRAY_BUFFER,
+            g->uvs.size() * sizeof(glm::vec2),
+            &g->uvs[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // Bind to vao
-    glBindVertexArray(vao);
+        // Allocate memory for vao
+        glGenVertexArrays(1, &obj->vao);
 
-    // Bind vertices to vao
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
-    glVertexAttribPointer(position_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(position_id);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // Bind to vao
+        glBindVertexArray(obj->vao);
 
-    // Bind normals to vao
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
-    glVertexAttribPointer(normal_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(normal_id);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // Bind vertices to vao
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+        glVertexAttribPointer(position_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glEnableVertexAttribArray(position_id);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // Bind uvs to vao
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
-    glVertexAttribPointer(uv_id, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(uv_id);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // Bind normals to vao
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+        glVertexAttribPointer(normal_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glEnableVertexAttribArray(normal_id);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // Stop bind to vao
-    glBindVertexArray(0);
+        // Bind uvs to vao
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
+        glVertexAttribPointer(uv_id, 2, GL_FLOAT, GL_FALSE, 0, 0);
+        glEnableVertexAttribArray(uv_id);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        // Stop bind to vao
+        glBindVertexArray(0);
+
+    }
 
     // Make uniform vars
     uniform_mv = glGetUniformLocation(program_id, "mv");
@@ -255,8 +261,8 @@ void InitBuffers()
 
 void InitObjects() 
 {
-    teapot* tp = new teapot();
-     obj = tp;
+    plane* tp = new plane();
+     objects.push_back(tp);
 }
 
 int main(int argc, char** argv)

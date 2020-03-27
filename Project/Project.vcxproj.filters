@@ -7,15 +7,6 @@
     <ClCompile Include="glsl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="objloader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="teapot.cpp">
       <Filter>Source Files\models</Filter>
     </ClCompile>
@@ -25,18 +16,24 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="plane.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="objectmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="objloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="objloader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="teapot.h">
@@ -46,6 +43,21 @@
       <Filter>Header Files\models</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plane.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objectmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,11 +71,17 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{04b37cd2-fd1e-4e5d-a923-99e7fba21f53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\models">
-      <UniqueIdentifier>{c3be10fe-593d-48a5-b688-5945e66d501a}</UniqueIdentifier>
+    <Filter Include="Header Files\objects">
+      <UniqueIdentifier>{9469782f-75e5-413b-ba49-2cd37d1909f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{82d49589-c4ed-4791-bc3c-6b0d035acea2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\models">
       <UniqueIdentifier>{6c711e3a-2029-48e8-99ec-20379ef3883d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\models">
+      <UniqueIdentifier>{c3be10fe-593d-48a5-b688-5945e66d501a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

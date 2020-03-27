@@ -133,7 +133,9 @@
     <ClCompile Include="glsl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="objectmanager.cpp" />
     <ClCompile Include="objloader.cpp" />
+    <ClCompile Include="plane.cpp" />
     <ClCompile Include="teapot.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
@@ -142,7 +144,9 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="glsl.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objloader.h" />
+    <ClInclude Include="plane.h" />
     <ClInclude Include="teapot.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>

@@ -38,3 +38,4 @@ glm::mat4 object::get_model()
 {
 	return *model;
 }
+
