@@ -41,7 +41,10 @@ public:
 	texture* get_texture();
 	glm::mat4 get_model();
 	void position(float x, float y, float z);
-	void rotate(float degrees);
+	void rotate_x(float angle);
+	void rotate_y(float angle);
+	void rotate_z(float angle);
+	void scale(float size);
 	GLuint vao;
 
 protected:

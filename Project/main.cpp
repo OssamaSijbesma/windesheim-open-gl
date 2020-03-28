@@ -17,6 +17,7 @@
 #include "camera.h"
 #include "plane.h"
 #include <list>
+#include "objectmanager.h"
 
 using namespace std;
 
@@ -26,11 +27,11 @@ using namespace std;
 
 const int WIDTH = 800, HEIGHT = 600;
 unsigned const int DELTA_TIME = 10;
-const int ARRAY_SIZE = 3;
 
 const char* fragshader_name = "fragmentshader.fsh";
 const char* vertexshader_name = "vertexshader.vsh";
 
+objectmanager _objectmanager;
 camera cam;
 
 //--------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ void Render()
     {
 
         // Set camera model and view matrix
-        mv = obj->get_model() * cam.get_view();
+        mv = cam.get_view() * obj->get_model();
 
         material* material = obj->get_material();
         texture* texture = obj->get_texture();
@@ -131,6 +132,10 @@ void Render(int n)
 {
     // Render
     Render();
+    
+    _objectmanager.render();
+
+
     glutTimerFunc(DELTA_TIME, Render, 0);
 }
 
@@ -144,7 +149,7 @@ void InitGlutGlew(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutSetOption(GLUT_MULTISAMPLE, 16);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Project OpenGL");
     glutDisplayFunc(Render);
@@ -190,7 +195,6 @@ void InitBuffers()
 
     for (object* obj : objects)
     {
-
         geometry* g = obj->get_geometry();
 
         // vbo for vertices
@@ -262,7 +266,12 @@ void InitBuffers()
 void InitObjects() 
 {
     plane* tp = new plane();
-     objects.push_back(tp);
+    tp->position(0, 0, 0);
+    plane* pl = new plane();
+    pl->position(1, 0, 0);
+    objects.push_back(tp);
+    objects.push_back(pl);
+
 }
 
 int main(int argc, char** argv)
