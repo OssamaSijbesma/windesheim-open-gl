@@ -131,6 +131,7 @@
     <ClCompile Include="box.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="glsl.cpp" />
+    <ClCompile Include="grass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="objectmanager.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="box.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="glsl.h" />
+    <ClInclude Include="grass.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objloader.h" />

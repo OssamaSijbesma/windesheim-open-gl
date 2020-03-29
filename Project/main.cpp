@@ -40,12 +40,11 @@ GLuint program_id;
 
 // Uniform ID's
 GLuint uniform_mv;
-GLuint uniform_proj;
-GLuint uniform_light_pos;
-GLuint uniform_material_ambient;
-GLuint uniform_material_diffuse;
+GLuint uniform_projection;
+GLuint uniform_ambient;
+GLuint uniform_diffuse;
 GLuint uniform_specular;
-GLuint uniform_material_power;
+GLuint uniform_power;
 
 camera _camera;
 objectmanager _objectmanager;
@@ -79,7 +78,7 @@ void KeyboardProxy(unsigned char key, int a, int b)
 
 void Render()
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_MULTISAMPLE);
 
@@ -97,12 +96,10 @@ void Render()
 
         // Fill uniform vars
         glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(viewmodel));
-        glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
-        glUniform3fv(uniform_light_pos, 1, glm::value_ptr(material->light_position));
-        glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(material->ambient_color));
-        glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(material->diffuse_color));
+        glUniform3fv(uniform_ambient, 1, glm::value_ptr(material->ambient_color));
+        glUniform3fv(uniform_diffuse, 1, glm::value_ptr(material->diffuse_color));
         glUniform3fv(uniform_specular, 1, glm::value_ptr(material->specular));
-        glUniform1f(uniform_material_power, material->power);
+        glUniform1f(uniform_power, material->power);
 
         // Send mvp
         glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(viewmodel));
@@ -183,15 +180,19 @@ void InitBuffers()
 
     // Make uniform vars
     uniform_mv = glGetUniformLocation(program_id, "mv");
-    uniform_proj = glGetUniformLocation(program_id, "projection");
-    uniform_light_pos = glGetUniformLocation(program_id, "light_pos");
-    uniform_material_ambient = glGetUniformLocation(program_id, "mat_ambient");
-    uniform_material_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
+    uniform_ambient = glGetUniformLocation(program_id, "mat_ambient");
+    uniform_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
     uniform_specular = glGetUniformLocation(program_id, "mat_specular");
-    uniform_material_power = glGetUniformLocation(program_id, "mat_power");
+    uniform_power = glGetUniformLocation(program_id, "mat_power");
 
     // Send mvp
     glUseProgram(program_id);
+
+    // Projection matrix 
+    glUniformMatrix4fv(glGetUniformLocation(program_id, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+    // Directional light simulating the sun.
+    glUniform3fv(glGetUniformLocation(program_id, "light_pos"), 1, glm::value_ptr(glm::vec3(4, 4, 4)));
 }
 
 

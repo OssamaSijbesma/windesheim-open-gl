@@ -1,4 +1,5 @@
 #include "objectmanager.h"
+#include "grass.h"
 
 
 
@@ -90,10 +91,10 @@ void objectmanager::build_objects(GLuint program_id)
 
 void objectmanager::create_objects()
 {
-    plane* tp = new plane();
+    grass* tp = new grass();
     tp->position(0, 0, 0);
-    plane* pl = new plane();
-    pl->position(1, 0, 0);
+    grass* pl = new grass();
+    pl->position(2, 0, 0);
     objects.push_back(tp);
     objects.push_back(pl);
 }
