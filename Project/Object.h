@@ -19,7 +19,6 @@ struct geometry {
 };
 
 struct material {
-	glm::vec3 light_position;
 	glm::vec3 ambient_color;	// Ambient lighting, simulates light from other sources.
 	glm::vec3 diffuse_color;	// Diffuse lighting, simulates the directional impact a light object has on an object.
 	glm::vec3 specular;			// Specular lightning, simulates the bright spot of a light.
