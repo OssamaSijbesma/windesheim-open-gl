@@ -22,10 +22,13 @@ class objectmanager
 public:
 	objectmanager();
 	~objectmanager();
-	std::list<object*> get_objects();
+	std::vector<object*> get_objects();
 	void build_objects(GLuint program_id);
 private:
-	void create_objects();
-	std::list<object*> objects;
+	void init_world();
+	std::vector<object*>* create_house();
+	std::vector<object*>* create_playground();
+	std::vector<object*>* create_pavement();
+	std::vector<object*> objects;
 };
 

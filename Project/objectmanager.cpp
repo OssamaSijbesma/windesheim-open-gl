@@ -12,14 +12,14 @@ objectmanager::~objectmanager()
 {
 }
 
-std::list<object*> objectmanager::get_objects()
+std::vector<object*> objectmanager::get_objects()
 {
     return objects;
 }
 
 void objectmanager::build_objects(GLuint program_id)
 {
-    create_objects();
+    init_world();
 
     // Attribute id's
     GLuint position_id = glGetAttribLocation(program_id, "position");
@@ -89,12 +89,37 @@ void objectmanager::build_objects(GLuint program_id)
 }
 
 
-void objectmanager::create_objects()
+void objectmanager::init_world()
 {
+    std::vector<object*>* pavement = create_pavement();
+    objects.insert(objects.end(), pavement->begin(), pavement->end());
+
+}
+
+vector<object*>* objectmanager::create_house()
+{
+    vector<object*>* house = new vector<object*>();
+
+    return house;
+}
+
+vector<object*>* objectmanager::create_playground()
+{
+    vector<object*>* playground = new vector<object*>();
+
+    return playground;
+}
+
+vector<object*>* objectmanager::create_pavement()
+{
+    vector<object*>* pavement = new vector<object*>();
+
     grass* tp = new grass();
     tp->position(0, 0, 0);
     grass* pl = new grass();
     pl->position(2, 0, 0);
-    objects.push_back(tp);
-    objects.push_back(pl);
+    pavement->push_back(tp);
+    pavement->push_back(pl);
+
+    return pavement;
 }

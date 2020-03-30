@@ -25,7 +25,7 @@ using namespace std;
 // Consts
 //--------------------------------------------------------------------------------
 
-const int WIDTH = 800, HEIGHT = 600;
+const int WIDTH = 1280, HEIGHT = 720;
 unsigned const int DELTA_TIME = 10;
 
 const char* fragshader_name = "fragmentshader.fsh";
@@ -201,7 +201,6 @@ int main(int argc, char** argv)
     InitGlutGlew(argc, argv);
     InitShaders();
     InitBuffers();
-
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
 
