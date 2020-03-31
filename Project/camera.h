@@ -13,7 +13,8 @@ public:
 	void process_input(unsigned char key, int a, int b);
 private:
 	const float WALK_SPEED = 0.5f;
-	const float TURN_SPEED = 1.0f;
+	const float TURN_SPEED = 2.0f;
+	bool view_mode;
 	float pitch;
 	float yaw;
 	glm::vec3* position;

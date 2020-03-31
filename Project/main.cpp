@@ -53,7 +53,7 @@ objectmanager _objectmanager;
 glm::mat4 projection = glm::perspective(
     glm::radians(45.0f),
     1.0f * WIDTH / HEIGHT, 0.1f,
-    20.0f);
+    120.0f); // View distance
 
 // View Matrix * Model Matrix
 glm::mat4 viewmodel;
@@ -140,8 +140,8 @@ void Render(int n)
 void InitGlutGlew(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutSetOption(GLUT_MULTISAMPLE, 16);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
+    glutSetOption(GLUT_MULTISAMPLE, 8);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Project OpenGL");
     glutDisplayFunc(Render);

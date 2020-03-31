@@ -1,11 +1,12 @@
 #include "objectmanager.h"
+#include "pavement.h"
 #include "grass.h"
+#include "woodchips.h"
 
 
 
 objectmanager::objectmanager()
 {
-
 }
 
 objectmanager::~objectmanager()
@@ -91,8 +92,8 @@ void objectmanager::build_objects(GLuint program_id)
 
 void objectmanager::init_world()
 {
-    std::vector<object*>* pavement = create_pavement();
-    objects.insert(objects.end(), pavement->begin(), pavement->end());
+    std::vector<object*>* floor = create_floor();
+    objects.insert(objects.end(), floor->begin(), floor->end());
 
 }
 
@@ -110,16 +111,29 @@ vector<object*>* objectmanager::create_playground()
     return playground;
 }
 
-vector<object*>* objectmanager::create_pavement()
+std::vector<object*>* objectmanager::create_floor()
 {
-    vector<object*>* pavement = new vector<object*>();
+    vector<object*>* floor_tiles = new vector<object*>();
 
-    grass* tp = new grass();
-    tp->position(0, 0, 0);
-    grass* pl = new grass();
-    pl->position(2, 0, 0);
-    pavement->push_back(tp);
-    pavement->push_back(pl);
+    for (int z = 0; z < sizeof(floor) / sizeof(floor[0]); z++)
+        for (int x = 0; x < sizeof(floor[0]) / sizeof(int); x++)
+        {
+            object* tile;
 
-    return pavement;
+            switch (floor[z][x])
+            {
+            case 0: tile = new pavement(); break;
+            case 1: tile = new grass(); break;
+            case 2: tile = new woodchips(); break;
+            default: tile = new plane(); break;
+            }
+
+            tile->position(x*2, 0, z*2);
+            floor_tiles->push_back(tile);
+        }
+
+    return floor_tiles;
 }
+
+
+

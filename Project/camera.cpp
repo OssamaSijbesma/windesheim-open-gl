@@ -3,6 +3,7 @@
 
 camera::camera()
 {
+	view_mode = false;
 	yaw = 0.0f;
 	pitch = 0.0f;
 	position = new glm::vec3(0.0f, 2.0f, 0.0f);
@@ -42,17 +43,35 @@ void camera::process_input(unsigned char key, int a, int b)
 	// For the direction we are looking at we only need to change the center.
 	switch (key)
 	{
+	case'c':
+		view_mode = !view_mode;
+		*position = (view_mode) ?
+			glm::vec3(0.0f, 30.0f, 0.0f) :
+			glm::vec3(0.0f, 2.0f, 0.0f);
+		*direction = (view_mode) ?
+			glm::vec3(0.0f, 0.0f, 0.0f) :
+			glm::vec3(0.0f, 0.0f, 0.0f);
+		break;
+
 	case'w': // Forward
-		*position += glm::vec3(direction->x, 0.0f, direction->z) * WALK_SPEED;
+		*position += (view_mode) ? 
+			glm::vec3(direction->x, direction->y, direction->z) * WALK_SPEED :
+			glm::vec3(direction->x, 0.0f, direction->z) * WALK_SPEED;
 		break;
 	case's': // Backward
-		*position -= glm::vec3(direction->x, 0.0f, direction->z) * WALK_SPEED;
+		*position -= (view_mode) ?
+			glm::vec3(direction->x, direction->y, direction->z) * WALK_SPEED :
+			glm::vec3(direction->x, 0.0f, direction->z) * WALK_SPEED;
 		break;
 	case'a': // Left
-		*position += glm::cross(glm::vec3(0.0, 1.0, 0.0), glm::vec3(direction->x, 0.0f, direction->z)) * WALK_SPEED;
+		*position += (view_mode) ? 
+			glm::cross(glm::vec3(0.0, 1.0, 0.0), glm::vec3(direction->x, direction->y, direction->z)) * WALK_SPEED :
+			glm::cross(glm::vec3(0.0, 1.0, 0.0), glm::vec3(direction->x, 0.0f, direction->z)) * WALK_SPEED;
 		break;
 	case'd': // Right
-		*position += glm::cross(glm::vec3(direction->x, 0.0f, direction->z), glm::vec3(0.0, 1.0, 0.0)) * WALK_SPEED;
+		*position += (view_mode) ? 
+			glm::cross(glm::vec3(direction->x, direction->y, direction->z), glm::vec3(0.0, 1.0, 0.0)) * WALK_SPEED :
+			glm::cross(glm::vec3(direction->x, 0.0f, direction->z), glm::vec3(0.0, 1.0, 0.0)) * WALK_SPEED;
 		break;
 
 	case'i': // Look up
@@ -61,11 +80,13 @@ void camera::process_input(unsigned char key, int a, int b)
 	case'k': // Look down
 		pitch -= TURN_SPEED;
 		break;
+	case'q':
 	case'j': // Look left
-		yaw += TURN_SPEED;
-		break;
-	case'l': // Look right
 		yaw -= TURN_SPEED;
+		break;
+	case'e':
+	case'l': // Look right
+		yaw += TURN_SPEED;
 		break;
 	}
 }
