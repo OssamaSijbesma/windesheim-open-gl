@@ -48,9 +48,9 @@ void camera::process_input(unsigned char key, int a, int b)
 		*position = (view_mode) ?
 			glm::vec3(0.0f, 30.0f, 0.0f) :
 			glm::vec3(0.0f, 2.0f, 0.0f);
-		*direction = (view_mode) ?
-			glm::vec3(0.0f, 0.0f, 0.0f) :
-			glm::vec3(0.0f, 0.0f, 0.0f);
+		pitch = (view_mode) ?
+			 -50 :
+			0;
 		break;
 
 	case'w': // Forward
