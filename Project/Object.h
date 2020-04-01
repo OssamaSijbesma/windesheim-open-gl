@@ -34,10 +34,10 @@ class object
 {
 public:
 	object();
-	~object();
-	geometry* get_geometry();
-	material* get_material();
-	texture* get_texture();
+	virtual ~object();
+	virtual geometry* get_geometry() = 0;
+	virtual material* get_material() = 0;
+	virtual texture* get_texture() = 0;
 	glm::mat4 get_model();
 	void position(float x, float y, float z);
 	void rotate_x(float angle);
@@ -47,8 +47,8 @@ public:
 	GLuint vao;
 
 protected:
-	texture* tex;
-	geometry* geo;
-	material* mat;
+	static texture* tex;
+	static geometry* geo;
+	static material* mat;
 	glm::mat4* model;
 };

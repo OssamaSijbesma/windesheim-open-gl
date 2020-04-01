@@ -118,7 +118,7 @@ std::vector<object*>* objectmanager::create_floor()
     for (int z = 0; z < sizeof(floor) / sizeof(floor[0]); z++)
         for (int x = 0; x < sizeof(floor[0]) / sizeof(int); x++)
         {
-            object* tile;
+            object* tile = nullptr;
 
             switch (floor[z][x])
             {
@@ -134,6 +134,7 @@ std::vector<object*>* objectmanager::create_floor()
 
     return floor_tiles;
 }
+
 
 
 

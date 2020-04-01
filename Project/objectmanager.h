@@ -11,7 +11,6 @@
 #include "texture.h"
 #include "object.h"
 
-#include "teapot.h"
 #include "camera.h"
 #include "plane.h"
 #include <list>
