@@ -5,18 +5,11 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include "objloader.h"
 #include "texture.h"
+#include "geometrymanager.h"
 
 using namespace std;
-
-struct geometry {
-	vector<glm::vec3> vertices;
-	vector<glm::vec3> normals;
-	vector<glm::vec2> uvs;
-};
 
 struct material {
 	glm::vec3 ambient_color;	// Ambient lighting, simulates light from other sources.
@@ -35,7 +28,8 @@ class object
 public:
 	object();
 	virtual ~object();
-	virtual geometry* get_geometry() = 0;
+	const virtual GLuint& get_vao(GLuint shader_id) const = 0;
+	const virtual int& get_vao_size() const = 0;
 	virtual material* get_material() = 0;
 	virtual texture* get_texture() = 0;
 	glm::mat4 get_model();
@@ -47,8 +41,8 @@ public:
 	GLuint vao;
 
 protected:
-	static texture* tex;
-	static geometry* geo;
+	geometry_type geo_type;
 	static material* mat;
+	static texture* tex;
 	glm::mat4* model;
 };

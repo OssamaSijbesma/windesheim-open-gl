@@ -1,22 +1,21 @@
 #include "woodchips.h"
-geometry* woodchips::geo = nullptr;
+
 material* woodchips::mat = nullptr;
 texture* woodchips::tex = nullptr;
 
 woodchips::woodchips()
 {
-
+	geo_type = plane;
 }
 
-geometry* woodchips::get_geometry()
+const GLuint& woodchips::get_vao(GLuint shader_id) const
 {
-	if (geo == nullptr)
-	{
-		geo = new geometry();
-		bool obj = loadOBJ("Objects/plane.obj", geo->vertices, geo->uvs, geo->normals);
-	}
+	return geometrymanager::get_instance()->vao(geo_type, shader_id);
+}
 
-	return geo;
+const int& woodchips::get_vao_size() const
+{
+	return geometrymanager::get_instance()->vao_size(geo_type);
 }
 
 material* woodchips::get_material()

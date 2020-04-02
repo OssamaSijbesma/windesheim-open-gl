@@ -107,10 +107,9 @@ void Render()
         glBindTexture(GL_TEXTURE_2D, texture->texture_id);
 
         // Send vao
-        glBindVertexArray(obj->vao);
-        glDrawArrays(GL_TRIANGLES, 0, obj->get_geometry()->vertices.size());
+        glBindVertexArray(obj->get_vao(program_id));
+        glDrawArrays(GL_TRIANGLES, 0, obj->get_vao_size());
         glBindVertexArray(0);
-
     }
 
     glutSwapBuffers();
@@ -174,8 +173,7 @@ void InitShaders()
 
 void InitBuffers()
 {
-   
-    _objectmanager.build_objects(program_id);
+    _objectmanager.init_world();
 
     // Make uniform vars
     uniform_mv = glGetUniformLocation(program_id, "mv");

@@ -1,5 +1,5 @@
 #include "plane.h"
-geometry* plane::geo = nullptr;
+
 material* plane::mat = nullptr;
 texture* plane::tex = nullptr;
 
@@ -8,15 +8,14 @@ plane::plane()
 
 }
 
-geometry* plane::get_geometry()
+const GLuint& plane::get_vao(GLuint shader_id) const
 {
-	if (geo == nullptr)
-	{
-		geo = new geometry();
-		bool obj = loadOBJ("Objects/plane.obj", geo->vertices, geo->uvs, geo->normals);
-	}
+	return 0;
+}
 
-	return geo;
+const int& plane::get_vao_size() const
+{
+	return 0;
 }
 
 material* plane::get_material()

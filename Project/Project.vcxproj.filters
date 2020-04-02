@@ -37,6 +37,9 @@
     <ClCompile Include="cube.cpp">
       <Filter>Source Files\models</Filter>
     </ClCompile>
+    <ClCompile Include="geometrymanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -69,6 +72,10 @@
     <ClInclude Include="cube.h">
       <Filter>Header Files\models</Filter>
     </ClInclude>
+    <ClInclude Include="geometrymanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -100,5 +107,8 @@
     <None Include="vertexshader.vsh">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project.rc" />
   </ItemGroup>
 </Project>

@@ -1,22 +1,22 @@
 #include "pavement.h"
-geometry* pavement::geo = nullptr;
+
 material* pavement::mat = nullptr;
 texture* pavement::tex = nullptr;
 
 pavement::pavement()
 {
-
+	geo_type = plane;
 }
 
-geometry* pavement::get_geometry()
+const GLuint& pavement::get_vao(GLuint shader_id) const
 {
-	if (geo == nullptr)
-	{
-		geo = new geometry();
-		bool obj = loadOBJ("Objects/plane.obj", geo->vertices, geo->uvs, geo->normals);
-	}
+	geometrymanager* g = geometrymanager::get_instance();
+	return g->vao(geo_type, shader_id);
+}
 
-	return geo;
+const int& pavement::get_vao_size() const
+{
+	return geometrymanager::get_instance()->vao_size(geo_type);
 }
 
 material* pavement::get_material()

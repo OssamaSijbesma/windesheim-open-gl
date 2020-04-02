@@ -1,47 +1,46 @@
 #include "grass.h"
-geometry* grass::grass_geometry = nullptr;
-material* grass::grass_material = nullptr;
-texture* grass::grass_texture = nullptr;
+
+material* grass::_material = nullptr;
+texture* grass::_texture = nullptr;
 
 grass::grass() : object()
 {
-
-
+	geo_type = plane;
 }
 
-geometry* grass::get_geometry()
+const GLuint& grass::get_vao(GLuint shader_id) const
 {
-	if (grass_geometry == nullptr)
-	{
-		grass_geometry = new geometry();
-		bool obj = loadOBJ("Objects/plane.obj", grass_geometry->vertices, grass_geometry->uvs, grass_geometry->normals);
-	}
+	geometrymanager* g = geometrymanager::get_instance();
+	return g->vao(geo_type, shader_id);
+}
 
-	return grass_geometry;
+const int& grass::get_vao_size() const
+{
+	return geometrymanager::get_instance()->vao_size(geo_type);
 }
 
 material* grass::get_material()
 {
-	if (grass_material == nullptr)
+	if (_material == nullptr)
 	{
-		grass_material = new material();
-		grass_material->ambient_color = glm::vec3(0.15, 0.232, 0.12);
-		grass_material->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
-		grass_material->specular = glm::vec3(0.0f);
-		grass_material->power = 1024;
+		_material = new material();
+		_material->ambient_color = glm::vec3(0.15, 0.232, 0.12);
+		_material->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
+		_material->specular = glm::vec3(0.0f);
+		_material->power = 1024;
 	}
 
-	return grass_material;
+	return _material;
 }
 
 texture* grass::get_texture()
 {
-	if (grass_texture == nullptr)
+	if (_texture == nullptr)
 	{
-		grass_texture = new texture();
-		grass_texture->texture_id = loadBMP("Textures/grass.bmp");
-		grass_texture->active = true;
+		_texture = new texture();
+		_texture->texture_id = loadBMP("Textures/grass.bmp");
+		_texture->active = true;
 	}
 
-	return grass_texture;
+	return _texture;
 }

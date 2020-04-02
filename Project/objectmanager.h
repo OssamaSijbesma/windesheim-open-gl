@@ -22,13 +22,13 @@ public:
 	objectmanager();
 	~objectmanager();
 	std::vector<object*> get_objects();
-	void build_objects(GLuint program_id);
-private:
 	void init_world();
+private:
 	std::vector<object*>* create_house();
 	std::vector<object*>* create_playground();
 	std::vector<object*>* create_floor();
 	std::vector<object*> objects;
+
 	const int floor[36][12] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
