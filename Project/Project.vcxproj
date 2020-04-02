@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="chickenleg.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="geometrymanager.cpp" />
     <ClCompile Include="glsl.cpp" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="chickenleg.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="geometrymanager.h" />
     <ClInclude Include="glsl.h" />

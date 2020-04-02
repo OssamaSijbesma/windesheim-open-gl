@@ -3,6 +3,7 @@
 #include "grass.h"
 #include "woodchips.h"
 #include "plane.h" 
+#include "chickenleg.h"
 
 
 objectmanager::objectmanager()
@@ -20,8 +21,11 @@ std::vector<object*> objectmanager::get_objects()
 
 void objectmanager::init_world()
 {
+    std::vector<object*>* chicken = create_chicken();
+    objects.insert(objects.end(), chicken->begin(), chicken->end());
     std::vector<object*>* floor = create_floor();
     objects.insert(objects.end(), floor->begin(), floor->end());
+
 
 }
 
@@ -32,11 +36,20 @@ vector<object*>* objectmanager::create_house()
     return house;
 }
 
-vector<object*>* objectmanager::create_playground()
+std::vector<object*>* objectmanager::create_chicken()
 {
-    vector<object*>* playground = new vector<object*>();
+    vector<object*>* chicken = new vector<object*>();
 
-    return playground;
+    object* cl = new chickenleg();
+    cl->position(12,0.8f,14);
+    chicken->push_back(cl);
+
+    object* cl2 = new chickenleg();
+    cl2->position(14, 0.8f, 14);
+    chicken->push_back(cl2);
+
+
+    return chicken;
 }
 
 std::vector<object*>* objectmanager::create_floor()
