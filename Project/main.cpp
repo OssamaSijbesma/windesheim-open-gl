@@ -44,6 +44,7 @@ GLuint uniform_ambient;
 GLuint uniform_diffuse;
 GLuint uniform_specular;
 GLuint uniform_power;
+GLuint uniform_texture;
 
 camera _camera;
 objectmanager _objectmanager;
@@ -94,11 +95,11 @@ void Render()
         texture* texture = obj->get_texture();
 
         // Fill uniform vars
-        glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(viewmodel));
         glUniform3fv(uniform_ambient, 1, glm::value_ptr(material->ambient_color));
         glUniform3fv(uniform_diffuse, 1, glm::value_ptr(material->diffuse_color));
         glUniform3fv(uniform_specular, 1, glm::value_ptr(material->specular));
         glUniform1f(uniform_power, material->power);
+        glUniform1f(uniform_texture, texture->active);
 
         // Send mvp
         glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(viewmodel));
@@ -181,6 +182,7 @@ void InitBuffers()
     uniform_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
     uniform_specular = glGetUniformLocation(program_id, "mat_specular");
     uniform_power = glGetUniformLocation(program_id, "mat_power");
+    uniform_texture = glGetUniformLocation(program_id, "has_texture");
 
     // Send mvp
     glUseProgram(program_id);

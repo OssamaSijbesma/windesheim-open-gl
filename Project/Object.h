@@ -38,7 +38,6 @@ public:
 	void rotate_y(float angle);
 	void rotate_z(float angle);
 	void scale(float size);
-	GLuint vao;
 
 protected:
 	geometry_type geo_type;

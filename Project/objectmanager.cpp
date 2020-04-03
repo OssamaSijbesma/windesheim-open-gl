@@ -4,7 +4,7 @@
 #include "woodchips.h"
 #include "plane.h" 
 #include "chickenleg.h"
-
+#include "chickenbody.h"
 
 objectmanager::objectmanager()
 {
@@ -48,6 +48,21 @@ std::vector<object*>* objectmanager::create_chicken()
     cl2->position(14, 0.8f, 14);
     chicken->push_back(cl2);
 
+    object* cb = new chickenbody();
+    cb->position(14.5f, 2.5f, 14);
+    cb->rotate_z(270);
+    //cb->rotate_x(-90);
+    cb->rotate_y(90);
+    cb->scale(3);
+    chicken->push_back(cb);
+
+    object* cb2 = new chickenbody();
+    cb2->position(11.5f, 2.5f, 14);
+    cb2->rotate_z(270);
+    //cb->rotate_x(-90);
+    cb2->rotate_y(90);
+    cb2->scale(3);
+    chicken->push_back(cb2);
 
     return chicken;
 }

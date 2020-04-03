@@ -43,6 +43,9 @@
     <ClCompile Include="chickenleg.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
+    <ClCompile Include="chickenbody.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="chickenleg.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="chickenbody.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>

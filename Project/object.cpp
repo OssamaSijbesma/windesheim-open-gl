@@ -2,7 +2,6 @@
 
 object::object()
 {
-	vao = 0;
 	geo_type = null;
 	model = new glm::mat4();
 }
