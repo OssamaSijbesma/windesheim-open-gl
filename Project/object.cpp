@@ -41,4 +41,19 @@ void object::scale(float size)
 	*model = glm::scale(*model, glm::vec3(size, size, size));
 }
 
+void object::scale_x(float size)
+{
+	*model = glm::scale(*model, glm::vec3(size, 1.0, 1.0));
+}
+
+void object::scale_y(float size)
+{
+	*model = glm::scale(*model, glm::vec3(1.0, size, 1.0));
+}
+
+void object::scale_z(float size)
+{
+	*model = glm::scale(*model, glm::vec3(1.0, 1.0, size));
+}
+
 

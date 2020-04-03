@@ -46,6 +46,12 @@
     <ClCompile Include="chickenbody.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
+    <ClCompile Include="chickeninner.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="slide.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -86,6 +92,12 @@
       <Filter>Header Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="chickenbody.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="chickeninner.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="slide.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>

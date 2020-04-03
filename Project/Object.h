@@ -38,6 +38,9 @@ public:
 	void rotate_y(float angle);
 	void rotate_z(float angle);
 	void scale(float size);
+	void scale_x(float size);
+	void scale_y(float size);
+	void scale_z(float size);
 
 protected:
 	geometry_type geo_type;
