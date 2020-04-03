@@ -26,7 +26,7 @@ void objectmanager::init_world()
     std::vector<object*>* floor = create_floor();
     objects.insert(objects.end(), floor->begin(), floor->end());
 
-    std::vector<object*>* chicken = create_chicken(10, 10);
+    std::vector<object*>* chicken = create_chicken(14, 14);
     objects.insert(objects.end(), chicken->begin(), chicken->end());
 
 }

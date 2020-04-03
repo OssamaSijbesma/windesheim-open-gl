@@ -30,7 +30,7 @@ material* slide::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.113, 0.254, 0.0);
+		_material->ambient_color = glm::vec3(0.192, 0.192, 0.192);
 		_material->diffuse_color = glm::vec3(1.0, 1.0, 1.0);
 		_material->specular = glm::vec3(0.0f);
 		_material->power = 512;
