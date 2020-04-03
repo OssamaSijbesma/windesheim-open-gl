@@ -21,11 +21,11 @@ std::vector<object*> objectmanager::get_objects()
 
 void objectmanager::init_world()
 {
-    std::vector<object*>* chicken = create_chicken();
-    objects.insert(objects.end(), chicken->begin(), chicken->end());
     std::vector<object*>* floor = create_floor();
     objects.insert(objects.end(), floor->begin(), floor->end());
 
+    std::vector<object*>* chicken = create_chicken();
+    objects.insert(objects.end(), chicken->begin(), chicken->end());
 
 }
 
