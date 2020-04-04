@@ -10,9 +10,6 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="plane.cpp">
-      <Filter>Source Files\models</Filter>
-    </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -34,9 +31,6 @@
     <ClCompile Include="woodchips.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
-    <ClCompile Include="cube.cpp">
-      <Filter>Source Files\models</Filter>
-    </ClCompile>
     <ClCompile Include="geometrymanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,10 +40,10 @@
     <ClCompile Include="chickenbody.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
-    <ClCompile Include="chickeninner.cpp">
+    <ClCompile Include="slide.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
-    <ClCompile Include="slide.cpp">
+    <ClCompile Include="chickenbase.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,9 +53,6 @@
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="plane.h">
-      <Filter>Header Files\models</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
@@ -81,9 +72,6 @@
     <ClInclude Include="woodchips.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
-    <ClInclude Include="cube.h">
-      <Filter>Header Files\models</Filter>
-    </ClInclude>
     <ClInclude Include="geometrymanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -94,10 +82,10 @@
     <ClInclude Include="chickenbody.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
-    <ClInclude Include="chickeninner.h">
+    <ClInclude Include="slide.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
-    <ClInclude Include="slide.h">
+    <ClInclude Include="chickenbase.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -116,12 +104,6 @@
     </Filter>
     <Filter Include="Source Files\objects">
       <UniqueIdentifier>{82d49589-c4ed-4791-bc3c-6b0d035acea2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\models">
-      <UniqueIdentifier>{6c711e3a-2029-48e8-99ec-20379ef3883d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\models">
-      <UniqueIdentifier>{c3be10fe-593d-48a5-b688-5945e66d501a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

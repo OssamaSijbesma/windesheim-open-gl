@@ -129,10 +129,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="chickenbase.cpp" />
     <ClCompile Include="chickenbody.cpp" />
-    <ClCompile Include="chickeninner.cpp" />
     <ClCompile Include="chickenleg.cpp" />
-    <ClCompile Include="cube.cpp" />
     <ClCompile Include="geometrymanager.cpp" />
     <ClCompile Include="glsl.cpp" />
     <ClCompile Include="grass.cpp" />
@@ -141,17 +140,15 @@
     <ClCompile Include="objectmanager.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="pavement.cpp" />
-    <ClCompile Include="plane.cpp" />
     <ClCompile Include="slide.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="woodchips.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="chickenbase.h" />
     <ClInclude Include="chickenbody.h" />
-    <ClInclude Include="chickeninner.h" />
     <ClInclude Include="chickenleg.h" />
-    <ClInclude Include="cube.h" />
     <ClInclude Include="geometrymanager.h" />
     <ClInclude Include="glsl.h" />
     <ClInclude Include="grass.h" />
@@ -159,7 +156,6 @@
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objloader.h" />
     <ClInclude Include="pavement.h" />
-    <ClInclude Include="plane.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="slide.h" />
     <ClInclude Include="woodchips.h" />

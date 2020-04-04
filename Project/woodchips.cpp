@@ -1,7 +1,7 @@
 #include "woodchips.h"
 
-material* woodchips::mat = nullptr;
-texture* woodchips::tex = nullptr;
+material* woodchips::_material = nullptr;
+texture* woodchips::_texture = nullptr;
 
 woodchips::woodchips()
 {
@@ -20,26 +20,26 @@ const int& woodchips::get_vao_size() const
 
 material* woodchips::get_material()
 {
-	if (mat == nullptr)
+	if (_material == nullptr)
 	{
-		mat = new material();
-		mat->ambient_color = glm::vec3(0.255, 0.202, 0.12);
-		mat->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
-		mat->specular = glm::vec3(0.0f);
-		mat->power = 2;
+		_material = new material();
+		_material->ambient_color = glm::vec3(0.255, 0.202, 0.12);
+		_material->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
+		_material->specular = glm::vec3(0.0f);
+		_material->power = 2;
 	}
 
-	return mat;
+	return _material;
 }
 
 texture* woodchips::get_texture()
 {
-	if (tex == nullptr)
+	if (_texture == nullptr)
 	{
-		tex = new texture();
-		tex->texture_id = loadBMP("Textures/woodchips.bmp");
-		tex->active = true;
+		_texture = new texture();
+		_texture->texture_id = loadBMP("Textures/woodchips.bmp");
+		_texture->active = true;
 	}
 
-	return tex;
+	return _texture;
 }

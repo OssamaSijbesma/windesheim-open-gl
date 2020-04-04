@@ -11,7 +11,7 @@ public:
 	virtual texture* get_texture();
 
 private:
-	static material* mat;
-	static texture* tex;
+	static material* _material;
+	static texture* _texture;
 };
 

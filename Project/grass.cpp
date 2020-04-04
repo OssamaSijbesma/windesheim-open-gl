@@ -10,8 +10,7 @@ grass::grass() : object()
 
 const GLuint& grass::get_vao(GLuint shader_id) const
 {
-	geometrymanager* g = geometrymanager::get_instance();
-	return g->vao(geo_type, shader_id);
+	return geometrymanager::get_instance()->vao(geo_type, shader_id);
 }
 
 const int& grass::get_vao_size() const

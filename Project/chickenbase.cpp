@@ -1,26 +1,23 @@
-#include "chickeninner.h"
-GLuint* chickeninner::vao = nullptr;
-int* chickeninner::vao_size = nullptr;
-material* chickeninner::_material = nullptr;
-texture* chickeninner::_texture = nullptr;
+#include "chickenbase.h"
+material* chickenbase::_material = nullptr;
+texture* chickenbase::_texture = nullptr;
 
-chickeninner::chickeninner()
+chickenbase::chickenbase()
 {
 	geo_type = cube;
 }
 
-const GLuint& chickeninner::get_vao(GLuint shader_id) const
+const GLuint& chickenbase::get_vao(GLuint shader_id) const
 {
-	geometrymanager* g = geometrymanager::get_instance();
-	return g->vao(geo_type, shader_id);
+	return geometrymanager::get_instance()->vao(geo_type, shader_id);
 }
 
-const int& chickeninner::get_vao_size() const
+const int& chickenbase::get_vao_size() const
 {
 	return geometrymanager::get_instance()->vao_size(geo_type);
 }
 
-material* chickeninner::get_material()
+material* chickenbase::get_material()
 {
 	if (_material == nullptr)
 	{
@@ -34,7 +31,7 @@ material* chickeninner::get_material()
 	return _material;
 }
 
-texture* chickeninner::get_texture()
+texture* chickenbase::get_texture()
 {
 	if (_texture == nullptr)
 	{
