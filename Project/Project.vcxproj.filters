@@ -34,17 +34,17 @@
     <ClCompile Include="geometrymanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="chickenleg.cpp">
-      <Filter>Source Files\objects</Filter>
+    <ClCompile Include="chickenbase.cpp">
+      <Filter>Source Files\objects\chicken</Filter>
     </ClCompile>
     <ClCompile Include="chickenbody.cpp">
-      <Filter>Source Files\objects</Filter>
+      <Filter>Source Files\objects\chicken</Filter>
+    </ClCompile>
+    <ClCompile Include="chickenleg.cpp">
+      <Filter>Source Files\objects\chicken</Filter>
     </ClCompile>
     <ClCompile Include="slide.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="chickenbase.cpp">
-      <Filter>Source Files\objects</Filter>
+      <Filter>Source Files\objects\chicken</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,17 +76,17 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="chickenleg.h">
-      <Filter>Header Files\objects</Filter>
+    <ClInclude Include="chickenbase.h">
+      <Filter>Header Files\objects\chicken</Filter>
     </ClInclude>
     <ClInclude Include="chickenbody.h">
-      <Filter>Header Files\objects</Filter>
+      <Filter>Header Files\objects\chicken</Filter>
+    </ClInclude>
+    <ClInclude Include="chickenleg.h">
+      <Filter>Header Files\objects\chicken</Filter>
     </ClInclude>
     <ClInclude Include="slide.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="chickenbase.h">
-      <Filter>Header Files\objects</Filter>
+      <Filter>Header Files\objects\chicken</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +104,12 @@
     </Filter>
     <Filter Include="Source Files\objects">
       <UniqueIdentifier>{82d49589-c4ed-4791-bc3c-6b0d035acea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\chicken">
+      <UniqueIdentifier>{3815985c-771a-4a08-8578-3555342d4a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\chicken">
+      <UniqueIdentifier>{db8df560-bae9-426c-9af7-5a6ab52ef353}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
