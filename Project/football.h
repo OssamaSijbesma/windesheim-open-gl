@@ -14,5 +14,6 @@ private:
 	static material* _material;
 	static texture* _texture;
 	int spin;
+	bool direction;
 };
 

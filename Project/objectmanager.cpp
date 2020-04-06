@@ -33,6 +33,10 @@ void objectmanager::init_world()
 
     std::vector<object*>* bike = create_bike(1.5, 70);
     objects.insert(objects.end(), bike->begin(), bike->end());
+
+
+    std::vector<object*>* house = create_house();
+    objects.insert(objects.end(), house->begin(), house->end());
 }
 
 vector<object*>* objectmanager::create_house()
@@ -41,7 +45,7 @@ vector<object*>* objectmanager::create_house()
 
     object* cl = new football();
     cl->scale(0.2f);
-    cl->position(14.0f, 0.8f, 28.0f);
+    cl->position(16.0f, 0.2f, 31.0f);
     house->push_back(cl);
 
     return house;

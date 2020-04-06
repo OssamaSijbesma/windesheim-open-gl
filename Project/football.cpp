@@ -46,8 +46,21 @@ texture* football::get_texture()
 
 void football::animate()
 {
-	
-	spin++;
-	rotate_x(spin);
-	rotate_y(spin);
+	if (direction)
+	{
+		_rotation.x += 1.5;
+		_rotation.y += 1.5;
+		_position.z += 0.06;
+	}
+	else
+	{
+		_rotation.x -= 1.5;
+		_rotation.y -= 1.5;
+		_position.z -= 0.06;
+	}
+
+	update_model();
+
+	if (_position.z > 40 || _position.z < 30)
+		direction = !direction;
 }
