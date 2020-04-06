@@ -22,15 +22,6 @@
     <ClCompile Include="texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="grass.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="pavement.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="woodchips.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="geometrymanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,6 +36,24 @@
     </ClCompile>
     <ClCompile Include="slide.cpp">
       <Filter>Source Files\objects\chicken</Filter>
+    </ClCompile>
+    <ClCompile Include="football.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="pavement.cpp">
+      <Filter>Source Files\objects\floor</Filter>
+    </ClCompile>
+    <ClCompile Include="grass.cpp">
+      <Filter>Source Files\objects\floor</Filter>
+    </ClCompile>
+    <ClCompile Include="woodchips.cpp">
+      <Filter>Source Files\objects\floor</Filter>
+    </ClCompile>
+    <ClCompile Include="wheel.cpp">
+      <Filter>Source Files\objects\bike</Filter>
+    </ClCompile>
+    <ClCompile Include="bikeframe.cpp">
+      <Filter>Source Files\objects\bike</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,19 +72,9 @@
     <ClInclude Include="objloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="grass.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="pavement.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="woodchips.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
     <ClInclude Include="geometrymanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="chickenbase.h">
       <Filter>Header Files\objects\chicken</Filter>
     </ClInclude>
@@ -87,6 +86,27 @@
     </ClInclude>
     <ClInclude Include="slide.h">
       <Filter>Header Files\objects\chicken</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="football.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="bikeframe.h">
+      <Filter>Header Files\objects\bike</Filter>
+    </ClInclude>
+    <ClInclude Include="wheel.h">
+      <Filter>Header Files\objects\bike</Filter>
+    </ClInclude>
+    <ClInclude Include="pavement.h">
+      <Filter>Header Files\objects\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="woodchips.h">
+      <Filter>Header Files\objects\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="grass.h">
+      <Filter>Header Files\objects\floor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +130,18 @@
     </Filter>
     <Filter Include="Source Files\objects\chicken">
       <UniqueIdentifier>{db8df560-bae9-426c-9af7-5a6ab52ef353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\bike">
+      <UniqueIdentifier>{1df522f8-6ca9-4fbf-9a8d-d5046c2071e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\floor">
+      <UniqueIdentifier>{b1875933-952b-4e9c-a417-358f94bb87e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\bike">
+      <UniqueIdentifier>{0bbe1306-f448-4241-8337-89ac758f49c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\floor">
+      <UniqueIdentifier>{d1c310f3-fede-489c-b55a-3912bdeade80}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

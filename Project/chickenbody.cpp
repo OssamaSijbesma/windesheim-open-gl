@@ -45,7 +45,7 @@ texture* chickenbody::get_texture()
 	{
 		_texture = new texture();
 		_texture->texture_id = loadBMP("Textures/wood.bmp");
-		_texture->active = true;
+		_texture->active = false;
 	}
 
 	return _texture;

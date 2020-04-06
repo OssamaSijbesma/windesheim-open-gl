@@ -6,6 +6,9 @@
 #include "chickenbase.h"
 #include "chickenbody.h"
 #include "slide.h"
+#include "football.h"
+#include "bikeframe.h"
+#include "wheel.h"
 
 objectmanager::objectmanager()
 {
@@ -28,13 +31,47 @@ void objectmanager::init_world()
     std::vector<object*>* chicken = create_chicken(14, 15);
     objects.insert(objects.end(), chicken->begin(), chicken->end());
 
+    std::vector<object*>* bike = create_bike(1.5, 70);
+    objects.insert(objects.end(), bike->begin(), bike->end());
 }
 
 vector<object*>* objectmanager::create_house()
 {
     vector<object*>* house = new vector<object*>();
 
+    object* cl = new football();
+    cl->scale(0.2f);
+    cl->position(14.0f, 0.8f, 28.0f);
+    house->push_back(cl);
+
     return house;
+}
+
+vector<object*>* objectmanager::create_bike(float x, float z)
+{
+    vector<object*>* bike = new vector<object*>();
+
+    object* bike_frame = new bikeframe();
+    bike_frame->scale(0.4f);
+    bike_frame->position(x, 0.5f, z);
+
+    bike_frame->rotate_y(90);
+
+    bike->push_back(bike_frame);
+
+    object* front_wheel = new wheel();
+    front_wheel->scale(0.4f);
+    front_wheel->rotate_y(90);
+    front_wheel->position(x, 0.5f, z - 0.51f);
+    bike->push_back(front_wheel); 
+    
+    object* back_wheel = new wheel();
+    back_wheel->scale(0.4f);
+    back_wheel->rotate_y(90);
+    back_wheel->position(x , 0.5f, z + 0.85f);
+    bike->push_back(back_wheel);
+
+    return bike;
 }
 
 std::vector<object*>* objectmanager::create_chicken(float x, float z)
@@ -50,9 +87,10 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
     chicken->push_back(cl2);
 
     object* cb = new chickenbody();
-    cb->position(x + 1.01f, 2.5f, z);
-    cb->rotate_y(90);
     cb->scale(3);
+    cb->rotate_y(90);
+    cb->position(x + 1.01f, 2.5f, z);
+
     chicken->push_back(cb);
 
     object* cb2 = new chickenbody();

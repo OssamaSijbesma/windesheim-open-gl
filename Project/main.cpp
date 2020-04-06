@@ -87,12 +87,13 @@ void Render()
 
     for (object* obj : _objectmanager.get_objects())
     {
-
         // Set camera model and view matrix
         viewmodel = _camera.get_view() * obj->get_model();
 
         material* material = obj->get_material();
         texture* texture = obj->get_texture();
+
+        obj->animate();
 
         // Fill uniform vars
         glUniform3fv(uniform_ambient, 1, glm::value_ptr(material->ambient_color));

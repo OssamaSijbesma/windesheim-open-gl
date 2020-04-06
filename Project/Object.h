@@ -32,6 +32,7 @@ public:
 	const virtual int& get_vao_size() const = 0;
 	virtual material* get_material() = 0;
 	virtual texture* get_texture() = 0;
+	virtual void animate();
 	glm::mat4 get_model();
 	void position(float x, float y, float z);
 	void rotate_x(float angle);
@@ -44,7 +45,11 @@ public:
 
 protected:
 	geometry_type geo_type;
+	void update_model();
 	static material* mat;
 	static texture* tex;
 	glm::mat4* model;
+	glm::vec3 _position;
+	glm::vec3 _rotation;
+	glm::vec3 _scale;
 };

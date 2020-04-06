@@ -1,5 +1,4 @@
 #include "grass.h"
-
 material* grass::_material = nullptr;
 texture* grass::_texture = nullptr;
 
