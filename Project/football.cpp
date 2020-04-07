@@ -5,17 +5,6 @@ texture* football::_texture = nullptr;
 football::football()
 {
 	geo_type = sphere;
-	spin = 0;
-}
-
-const GLuint& football::get_vao(GLuint shader_id) const
-{
-	return geometrymanager::get_instance()->vao(geo_type, shader_id);
-}
-
-const int& football::get_vao_size() const
-{
-	return geometrymanager::get_instance()->vao_size(geo_type);
 }
 
 material* football::get_material()
