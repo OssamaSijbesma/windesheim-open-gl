@@ -28,8 +28,8 @@ class object
 public:
 	object();
 	virtual ~object();
-	const virtual GLuint& get_vao(GLuint shader_id) const = 0;
-	const virtual int& get_vao_size() const = 0;
+	const virtual GLuint& get_vao(GLuint shader_id) const;
+	const virtual int& get_vao_size() const;
 	virtual material* get_material() = 0;
 	virtual texture* get_texture() = 0;
 	virtual void animate();

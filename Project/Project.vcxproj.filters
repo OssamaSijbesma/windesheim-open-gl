@@ -10,19 +10,7 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="objectmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="objloader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="geometrymanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="chickenbase.cpp">
@@ -36,9 +24,6 @@
     </ClCompile>
     <ClCompile Include="slide.cpp">
       <Filter>Source Files\objects\chicken</Filter>
-    </ClCompile>
-    <ClCompile Include="football.cpp">
-      <Filter>Source Files\objects</Filter>
     </ClCompile>
     <ClCompile Include="pavement.cpp">
       <Filter>Source Files\objects\floor</Filter>
@@ -55,24 +40,36 @@
     <ClCompile Include="bikeframe.cpp">
       <Filter>Source Files\objects\bike</Filter>
     </ClCompile>
+    <ClCompile Include="football.cpp">
+      <Filter>Source Files\objects\other</Filter>
+    </ClCompile>
+    <ClCompile Include="geometrymanager.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objectmanager.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objloader.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="bush.cpp">
+      <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
+    <ClCompile Include="groundfloor.cpp">
+      <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
+    <ClCompile Include="firstfloor.cpp">
+      <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="objectmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="objloader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="geometrymanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="chickenbase.h">
@@ -90,9 +87,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="football.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
     <ClInclude Include="bikeframe.h">
       <Filter>Header Files\objects\bike</Filter>
     </ClInclude>
@@ -107,6 +101,30 @@
     </ClInclude>
     <ClInclude Include="grass.h">
       <Filter>Header Files\objects\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="football.h">
+      <Filter>Header Files\objects\other</Filter>
+    </ClInclude>
+    <ClInclude Include="objectmanager.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="geometrymanager.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objloader.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="bush.h">
+      <Filter>Header Files\objects\house</Filter>
+    </ClInclude>
+    <ClInclude Include="firstfloor.h">
+      <Filter>Header Files\objects\house</Filter>
+    </ClInclude>
+    <ClInclude Include="groundfloor.h">
+      <Filter>Header Files\objects\house</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +160,18 @@
     </Filter>
     <Filter Include="Source Files\objects\floor">
       <UniqueIdentifier>{d1c310f3-fede-489c-b55a-3912bdeade80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\other">
+      <UniqueIdentifier>{8e7b9c68-75be-4532-9568-31777ad80354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\other">
+      <UniqueIdentifier>{57e087bb-e1bb-46d6-ac7d-c023e9405cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\house">
+      <UniqueIdentifier>{c7a5dbb6-2285-4ce2-bfad-9cdc940ca159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\house">
+      <UniqueIdentifier>{6eaa8a7f-de7d-486d-acc2-c50ef465f527}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

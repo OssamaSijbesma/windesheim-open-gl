@@ -7,15 +7,6 @@ grass::grass() : object()
 	geo_type = plane;
 }
 
-const GLuint& grass::get_vao(GLuint shader_id) const
-{
-	return geometrymanager::get_instance()->vao(geo_type, shader_id);
-}
-
-const int& grass::get_vao_size() const
-{
-	return geometrymanager::get_instance()->vao_size(geo_type);
-}
 
 material* grass::get_material()
 {

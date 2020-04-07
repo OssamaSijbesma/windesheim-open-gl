@@ -8,16 +8,6 @@ pavement::pavement()
 	geo_type = plane;
 }
 
-const GLuint& pavement::get_vao(GLuint shader_id) const
-{
-	return geometrymanager::get_instance()->vao(geo_type, shader_id);
-}
-
-const int& pavement::get_vao_size() const
-{
-	return geometrymanager::get_instance()->vao_size(geo_type);
-}
-
 material* pavement::get_material()
 {
 	if (_material == nullptr)

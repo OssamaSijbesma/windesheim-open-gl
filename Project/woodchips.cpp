@@ -8,16 +8,6 @@ woodchips::woodchips()
 	geo_type = plane;
 }
 
-const GLuint& woodchips::get_vao(GLuint shader_id) const
-{
-	return geometrymanager::get_instance()->vao(geo_type, shader_id);
-}
-
-const int& woodchips::get_vao_size() const
-{
-	return geometrymanager::get_instance()->vao_size(geo_type);
-}
-
 material* woodchips::get_material()
 {
 	if (_material == nullptr)

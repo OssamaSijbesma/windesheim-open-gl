@@ -7,16 +7,6 @@ chickenbase::chickenbase()
 	geo_type = cube;
 }
 
-const GLuint& chickenbase::get_vao(GLuint shader_id) const
-{
-	return geometrymanager::get_instance()->vao(geo_type, shader_id);
-}
-
-const int& chickenbase::get_vao_size() const
-{
-	return geometrymanager::get_instance()->vao_size(geo_type);
-}
-
 material* chickenbase::get_material()
 {
 	if (_material == nullptr)
