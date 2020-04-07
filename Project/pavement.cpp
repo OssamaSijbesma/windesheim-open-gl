@@ -6,6 +6,7 @@ texture* pavement::_texture = nullptr;
 pavement::pavement()
 {
 	geo_type = plane;
+	shader = lambert;
 }
 
 material* pavement::get_material()

@@ -175,13 +175,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentshader.fsh">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="vertexshader.vsh">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="lambertfragmentshader.fsh">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="phongfragmentshader.fsh">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -11,6 +11,8 @@
 
 using namespace std;
 
+enum shader_type { phong, lambert };
+
 struct material {
 	glm::vec3 ambient_color;	// Ambient lighting, simulates light from other sources.
 	glm::vec3 diffuse_color;	// Diffuse lighting, simulates the directional impact a light object has on an object.
@@ -34,6 +36,7 @@ public:
 	virtual texture* get_texture() = 0;
 	virtual void animate();
 	glm::mat4 get_model();
+	shader_type get_shader_type();
 	void position(float x, float y, float z);
 	void rotate_x(float angle);
 	void rotate_y(float angle);
@@ -45,6 +48,7 @@ public:
 
 protected:
 	geometry_type geo_type;
+	shader_type shader;
 	void update_model();
 	static material* mat;
 	static texture* tex;

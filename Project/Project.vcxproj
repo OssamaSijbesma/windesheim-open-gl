@@ -179,7 +179,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentshader.fsh" />
+    <None Include="phongfragmentshader.fsh" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project.rc" />

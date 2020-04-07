@@ -7,7 +7,6 @@ texture* wheel::_texture = nullptr;
 wheel::wheel()
 {
 	vao_size = new int();
-	spin = 0.0;
 }
 
 const GLuint& wheel::get_vao(GLuint shader_id) const

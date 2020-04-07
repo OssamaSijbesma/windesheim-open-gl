@@ -16,5 +16,4 @@ private:
 	static int* vao_size;
 	static material* _material;
 	static texture* _texture;
-	float spin;
 };

@@ -3,6 +3,7 @@
 object::object()
 {
 	geo_type = null;
+	shader = phong;
 	model = new glm::mat4();
 	_position = glm::vec3(0, 0, 0);
 	_rotation = glm::vec3(0, 0, 0);
@@ -31,6 +32,11 @@ void object::animate()
 glm::mat4 object::get_model()
 {
 	return *model;
+}
+
+shader_type object::get_shader_type()
+{
+	return shader;
 }
 
 void object::position(float x, float y, float z)
