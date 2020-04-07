@@ -173,6 +173,7 @@
     <ClInclude Include="woodchips.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lambertfragmentshader.fsh" />
     <None Include="vertexshader.vsh">
       <FileType>Document</FileType>
     </None>

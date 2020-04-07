@@ -181,6 +181,9 @@
     <None Include="vertexshader.vsh">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="lambertfragmentshader.fsh">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project.rc" />
