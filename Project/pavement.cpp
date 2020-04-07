@@ -14,10 +14,8 @@ material* pavement::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.255, 0.255, 0.169);
-		_material->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
-		_material->specular = glm::vec3(16.0f);
-		_material->power = 1024;
+		_material->ambient_color = glm::vec3(0.355, 0.355, 0.269);
+		_material->diffuse_color = glm::vec3(0.400, 0.400, 0.300);
 	}
 
 	return _material;

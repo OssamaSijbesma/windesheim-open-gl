@@ -5,6 +5,7 @@ texture* grass::_texture = nullptr;
 grass::grass() : object()
 {
 	geo_type = plane;
+	shader = lambert;
 }
 
 
@@ -13,10 +14,8 @@ material* grass::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.15, 0.232, 0.12);
-		_material->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
-		_material->specular = glm::vec3(0.0f);
-		_material->power = 1024;
+		_material->ambient_color = glm::vec3(0.07, 0.23, 0.07);
+		_material->diffuse_color = glm::vec3(0.13, 0.51, 0.24);
 	}
 
 	return _material;

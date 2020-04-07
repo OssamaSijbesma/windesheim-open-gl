@@ -58,9 +58,7 @@ vector<object*>* objectmanager::create_bike(float x, float z)
     object* bike_frame = new bikeframe();
     bike_frame->scale(0.4f);
     bike_frame->position(x, 0.5f, z);
-
     bike_frame->rotate_y(90);
-
     bike->push_back(bike_frame);
 
     object* front_wheel = new wheel();

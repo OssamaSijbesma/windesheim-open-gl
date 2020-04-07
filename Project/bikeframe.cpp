@@ -30,9 +30,9 @@ material* bikeframe::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.192, 0.192, 0.192);
-		_material->diffuse_color = glm::vec3(1.0, 1.0, 1.0);
-		_material->specular = glm::vec3(0.0f);
+		_material->ambient_color = glm::vec3(0.105, 0.105, 0.105);
+		_material->diffuse_color = glm::vec3(0.196, 0.196, 0.196);
+		_material->specular = glm::vec3(0.3f);
 		_material->power = 1024;
 	}
 

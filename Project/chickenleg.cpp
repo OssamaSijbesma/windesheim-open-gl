@@ -7,6 +7,8 @@ texture* chickenleg::_texture = nullptr;
 chickenleg::chickenleg()
 {
 	vao_size = new int();
+	shader = lambert;
+
 }
 
 const GLuint& chickenleg::get_vao(GLuint shader_id) const
@@ -31,9 +33,7 @@ material* chickenleg::get_material()
 	{
 		_material = new material();
 		_material->ambient_color = glm::vec3(0.122, 0.05, 0.0);
-		_material->diffuse_color = glm::vec3(1.0, 1.0, 0.0);
-		_material->specular = glm::vec3(0.0f);
-		_material->power = 1024;
+		_material->diffuse_color = glm::vec3(0.200, 0.100, 0.0);
 	}
 
 	return _material;

@@ -7,6 +7,7 @@ texture* wheel::_texture = nullptr;
 wheel::wheel()
 {
 	vao_size = new int();
+	shader = lambert;
 }
 
 const GLuint& wheel::get_vao(GLuint shader_id) const
@@ -30,10 +31,8 @@ material* wheel::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.0, 0.0, 0.0);
-		_material->diffuse_color = glm::vec3(1.0, 1.0, 1.0);
-		_material->specular = glm::vec3(0.0f);
-		_material->power = 1024;
+		_material->ambient_color = glm::vec3(0.184, 0.309, 0.501);
+		_material->diffuse_color = glm::vec3(0.278, 0.466, 0.749);
 	}
 
 	return _material;

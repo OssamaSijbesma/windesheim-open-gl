@@ -6,6 +6,7 @@ texture* woodchips::_texture = nullptr;
 woodchips::woodchips()
 {
 	geo_type = plane;
+	shader = lambert;
 }
 
 material* woodchips::get_material()
@@ -13,10 +14,8 @@ material* woodchips::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.255, 0.202, 0.12);
-		_material->diffuse_color = glm::vec3(0.0, 1.0, 0.0);
-		_material->specular = glm::vec3(0.0f);
-		_material->power = 2;
+		_material->ambient_color = glm::vec3(0.288, 0.237, 0.0);
+		_material->diffuse_color = glm::vec3(0.519, 0.437, 0.0);
 	}
 
 	return _material;
