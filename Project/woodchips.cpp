@@ -14,8 +14,8 @@ material* woodchips::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.288, 0.237, 0.0);
-		_material->diffuse_color = glm::vec3(0.519, 0.437, 0.0);
+		_material->ambient_color = glm::vec3(0.188, 0.137, 0.0);
+		_material->diffuse_color = glm::vec3(0.419, 0.337, 0.0);
 	}
 
 	return _material;
