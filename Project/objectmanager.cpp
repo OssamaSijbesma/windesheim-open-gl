@@ -34,7 +34,6 @@ void objectmanager::init_world()
     std::vector<object*>* bike = create_bike(1.5, 70);
     objects.insert(objects.end(), bike->begin(), bike->end());
 
-
     std::vector<object*>* house = create_house();
     objects.insert(objects.end(), house->begin(), house->end());
 }

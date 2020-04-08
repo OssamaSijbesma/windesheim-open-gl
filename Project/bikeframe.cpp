@@ -1,28 +1,21 @@
 #include "bikeframe.h"
-GLuint* bikeframe::vao = nullptr;
-int* bikeframe::vao_size = nullptr;
+vao* bikeframe::_vao = nullptr;
 material* bikeframe::_material = nullptr;
 texture* bikeframe::_texture = nullptr;
 
 bikeframe::bikeframe()
 {
-	vao_size = new int();
 }
 
-const GLuint& bikeframe::get_vao(GLuint shader_id) const
+const vao& bikeframe::get_vao(GLuint shader_id) const
 {
-	if (vao == nullptr)
+	if (_vao == nullptr)
 	{
-		vao = new GLuint();
-		*vao = geometrymanager::get_instance()->build_vao(shader_id, "Objects/bikeframe.obj", vao_size);
+		_vao = new vao();
+		*_vao = geometrymanager::get_instance()->load_vao(shader_id, "Objects/bikeframe.obj");
 	}
 
-	return *vao;
-}
-
-const int& bikeframe::get_vao_size() const
-{
-	return *vao_size;
+	return *_vao;
 }
 
 material* bikeframe::get_material()

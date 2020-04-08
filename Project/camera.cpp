@@ -45,12 +45,9 @@ void camera::process_input(unsigned char key, int a, int b)
 	{
 	case'c':
 		view_mode = !view_mode;
-		*position = (view_mode) ?
-			glm::vec3(0.0f, 30.0f, 0.0f) :
-			glm::vec3(0.0f, 2.0f, 0.0f);
-		pitch = (view_mode) ?
-			 -50 :
-			0;
+		*position = (view_mode) ? glm::vec3(0.0f, 30.0f, 0.0f) : glm::vec3(0.0f, 2.0f, 0.0f);
+		pitch = (view_mode) ? -50 : 0;
+		yaw = (view_mode) ? 50 : 0;
 		break;
 
 	case'w': // Forward

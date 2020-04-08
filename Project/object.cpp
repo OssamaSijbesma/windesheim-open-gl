@@ -15,14 +15,9 @@ object::~object()
 	delete model;
 }
 
-const GLuint& object::get_vao(GLuint shader_id) const
+const vao& object::get_vao(GLuint shader_id) const
 {
-	return geometrymanager::get_instance()->vao(geo_type, shader_id);
-}
-
-const int& object::get_vao_size() const
-{
-	return geometrymanager::get_instance()->vao_size(geo_type);
+	return geometrymanager::get_instance()->get_vao(shader_id, geo_type);
 }
 
 void object::animate()

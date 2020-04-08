@@ -93,6 +93,7 @@ void Render()
         // Set camera model and view matrix
         viewmodel = _camera.get_view() * obj->get_model();
 
+        vao vao = obj->get_vao(shader_id[shader]);
         material* material = obj->get_material();
         texture* texture = obj->get_texture();
 
@@ -112,8 +113,8 @@ void Render()
         glBindTexture(GL_TEXTURE_2D, texture->texture_id);
 
         // Send vao
-        glBindVertexArray(obj->get_vao(shader_id[shader]));
-        glDrawArrays(GL_TRIANGLES, 0, obj->get_vao_size());
+        glBindVertexArray(vao.id);
+        glDrawArrays(GL_TRIANGLES, 0, vao.size);
         glBindVertexArray(0);
     }
 

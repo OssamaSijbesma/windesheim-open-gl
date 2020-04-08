@@ -1,29 +1,22 @@
 #include "wheel.h"
-GLuint* wheel::vao = nullptr;
-int* wheel::vao_size = nullptr;
+vao* wheel::_vao = nullptr;
 material* wheel::_material = nullptr;
 texture* wheel::_texture = nullptr;
 
 wheel::wheel()
 {
-	vao_size = new int();
 	shader = lambert;
 }
 
-const GLuint& wheel::get_vao(GLuint shader_id) const
+const vao& wheel::get_vao(GLuint shader_id) const
 {
-	if (vao == nullptr)
+	if (_vao == nullptr)
 	{
-		vao = new GLuint();
-		*vao = geometrymanager::get_instance()->build_vao(shader_id, "Objects/wheel.obj", vao_size);
+		_vao = new vao();
+		*_vao = geometrymanager::get_instance()->load_vao(shader_id, "Objects/wheel.obj");
 	}
 
-	return *vao;
-}
-
-const int& wheel::get_vao_size() const
-{
-	return *vao_size;
+	return *_vao;
 }
 
 material* wheel::get_material()

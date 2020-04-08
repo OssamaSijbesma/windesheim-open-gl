@@ -1,30 +1,22 @@
 #include "chickenleg.h"
-GLuint* chickenleg::vao = nullptr;
-int* chickenleg::vao_size = nullptr;
+vao* chickenleg::_vao = nullptr;
 material* chickenleg::_material = nullptr;
 texture* chickenleg::_texture = nullptr;
 
 chickenleg::chickenleg()
 {
-	vao_size = new int();
 	shader = lambert;
-
 }
 
-const GLuint& chickenleg::get_vao(GLuint shader_id) const
+const vao& chickenleg::get_vao(GLuint shader_id) const
 {
-	if (vao == nullptr) 
+	if (_vao == nullptr)
 	{
-		vao = new GLuint();
-		*vao = geometrymanager::get_instance()->build_vao(shader_id, "Objects/chickenlegs.obj", vao_size);
+		_vao = new vao();
+		*_vao = geometrymanager::get_instance()->load_vao(shader_id, "Objects/chickenlegs.obj");
 	}
-	
-	return *vao;
-}
 
-const int& chickenleg::get_vao_size() const
-{
-	return *vao_size;
+	return *_vao;
 }
 
 material* chickenleg::get_material()

@@ -5,15 +5,13 @@ class bikeframe : public object
 {
 public:
 	bikeframe();
-	const virtual GLuint& get_vao(GLuint shader_id) const;
-	const virtual int& get_vao_size() const;
+	const virtual vao& get_vao(GLuint shader_id) const;
 	virtual material* get_material();
 	virtual texture* get_texture();
 	virtual void animate();
 
 private:
-	static GLuint* vao;
-	static int* vao_size;
+	static vao* _vao;
 	static material* _material;
 	static texture* _texture;
 };

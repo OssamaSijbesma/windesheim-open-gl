@@ -1,28 +1,21 @@
 #include "slide.h"
-GLuint* slide::vao = nullptr;
-int* slide::vao_size = nullptr;
+vao* slide::_vao = nullptr;
 material* slide::_material = nullptr;
 texture* slide::_texture = nullptr;
 
 slide::slide()
 {
-	vao_size = new int();
 }
 
-const GLuint& slide::get_vao(GLuint shader_id) const
+const vao& slide::get_vao(GLuint shader_id) const
 {
-	if (vao == nullptr)
+	if (_vao == nullptr)
 	{
-		vao = new GLuint();
-		*vao = geometrymanager::get_instance()->build_vao(shader_id, "Objects/slide.obj", vao_size);
+		_vao = new vao();
+		*_vao = geometrymanager::get_instance()->load_vao(shader_id, "Objects/slide.obj");
 	}
 
-	return *vao;
-}
-
-const int& slide::get_vao_size() const
-{
-	return *vao_size;
+	return *_vao;
 }
 
 material* slide::get_material()

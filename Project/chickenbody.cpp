@@ -1,29 +1,22 @@
 #include "chickenbody.h"
-GLuint* chickenbody::vao = nullptr;
-int* chickenbody::vao_size = nullptr;
+vao* chickenbody::_vao = nullptr;
 material* chickenbody::_material = nullptr;
 texture* chickenbody::_texture = nullptr;
 
 chickenbody::chickenbody()
 {
-	vao_size = new int();
 	shader = lambert;
 }
 
-const GLuint& chickenbody::get_vao(GLuint shader_id) const
+const vao& chickenbody::get_vao(GLuint shader_id) const
 {
-	if (vao == nullptr)
+	if (_vao == nullptr)
 	{
-		vao = new GLuint();
-		*vao = geometrymanager::get_instance()->build_vao(shader_id, "Objects/chickenbody.obj", vao_size);
+		_vao = new vao();
+		*_vao = geometrymanager::get_instance()->load_vao(shader_id, "Objects/chickenbody.obj");
 	}
 
-	return *vao;
-}
-
-const int& chickenbody::get_vao_size() const
-{
-	return *vao_size;
+	return *_vao;
 }
 
 material* chickenbody::get_material()

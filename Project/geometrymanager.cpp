@@ -1,14 +1,4 @@
-#include <GL/glew.h>
-
-#include <glm/glm.hpp>
-
-#include <vector>
-
-#include "objloader.h"
 #include "geometrymanager.h"
-
-using namespace std;
-
 geometrymanager* geometrymanager::instance = nullptr;
 
 geometrymanager::geometrymanager() 
@@ -22,61 +12,63 @@ geometrymanager* geometrymanager::get_instance()
     return instance;
 }
 
-GLuint geometrymanager::vao(geometry_type type, GLuint shader_id)
+vao geometrymanager::get_vao(GLuint shader_id, geometry_type type)
 {
-    if (vaos[type] == 0) 
+    if (vaos[type].id == 0)
     {
-        int* size = new int();
-
         switch (type)
         {
-        case null:
+        case null: 
             break;
-        case plane:
-            vaos[type] = build_vao(shader_id, "Objects/plane.obj", size);
+        case plane: 
+            vao temp;
+            temp.id = build_vao(shader_id, plane_vertices, plane_normals, plane_uvs);
+            temp.size = plane_vertices.size();
+            vaos[type] = temp;
             break;
         case cube:
-            vaos[type] = build_vao(shader_id, "Objects/cube.obj", size);
+            vaos[type] = load_vao(shader_id, "Objects/cube.obj");
             break;
         case circle:
-            vaos[type] = build_vao(shader_id, "Objects/circle.obj", size);
+            vaos[type] = load_vao(shader_id, "Objects/circle.obj");
             break;
         case sphere:
-            vaos[type] = build_vao(shader_id, "Objects/sphere.obj", size);
+            vaos[type] = load_vao(shader_id, "Objects/sphere.obj");
             break;
         case cylinder:
-            vaos[type] = build_vao(shader_id, "Objects/cylinder.obj", size);
+            vaos[type] = load_vao(shader_id, "Objects/cylinder.obj");
             break;
         case cone:
-            vaos[type] = build_vao(shader_id, "Objects/cone.obj", size);
+            vaos[type] = load_vao(shader_id, "Objects/cone.obj");
             break;
         case torus:
-            vaos[type] = build_vao(shader_id, "Objects/torus.obj", size);
+            vaos[type] = load_vao(shader_id, "Objects/torus.obj");
             break;
         }
-
-        vao_sizes[type] = *size;
     }
-	return vaos[type];
+
+    return vaos[type];
 }
 
-int geometrymanager::vao_size(geometry_type type)
-{
-    return vao_sizes[type];
-}
-
-GLuint geometrymanager::build_vao(GLuint shader_id, const char* path, int* vao_size)
+vao geometrymanager::load_vao(GLuint shader_id, const char* path)
 {
     // geometry
     vector<glm::vec3> vertices;
     vector<glm::vec3> normals;
     vector<glm::vec2> uvs;
 
-    // load geometry from object
-    bool obj = loadOBJ(path, vertices, uvs, normals);
-
-    *vao_size = vertices.size();
+    loadOBJ(path, vertices, uvs, normals);
     
+    vao ding;
+    ding.id = build_vao(shader_id, vertices, normals, uvs);
+    ding.size = vertices.size();
+
+    return ding;
+}
+
+GLuint geometrymanager::build_vao(GLuint shader_id, vector<glm::vec3> vertices, vector<glm::vec3> normals, vector<glm::vec2> uvs)
+{
+
     // Attribute id's
     GLuint position_id = glGetAttribLocation(shader_id, "position");
     GLuint normal_id = glGetAttribLocation(shader_id, "normal");
