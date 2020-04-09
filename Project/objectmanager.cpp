@@ -9,7 +9,7 @@
 #include "football.h"
 #include "bikeframe.h"
 #include "wheel.h"
-
+#include "skybox.h"
 objectmanager::objectmanager()
 {
 }
@@ -25,6 +25,13 @@ std::vector<object*> objectmanager::get_objects()
 
 void objectmanager::init_world()
 {
+    object* cl = new skybox();
+    cl->scale(50);
+    cl->position(10, 0, 30);
+    cl->rotate_z(180);
+    objects.push_back(cl);
+
+
     std::vector<object*>* floor = create_floor();
     objects.insert(objects.end(), floor->begin(), floor->end());
 

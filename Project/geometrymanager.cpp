@@ -16,18 +16,22 @@ vao geometrymanager::get_vao(GLuint shader_id, geometry_type type)
 {
     if (vaos[type].id == 0)
     {
+        vao temp;
+
         switch (type)
         {
         case null: 
             break;
         case plane: 
-            vao temp;
             temp.id = build_vao(shader_id, plane_vertices, plane_normals, plane_uvs);
             temp.size = plane_vertices.size();
             vaos[type] = temp;
             break;
         case cube:
             vaos[type] = load_vao(shader_id, "Objects/cube.obj");
+            break;
+        case cube_skybox:
+            vaos[type] = load_vao(shader_id, "Objects/cube_inverted.obj");
             break;
         case circle:
             vaos[type] = load_vao(shader_id, "Objects/circle.obj");

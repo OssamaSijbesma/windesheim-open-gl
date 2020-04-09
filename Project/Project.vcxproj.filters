@@ -64,6 +64,9 @@
     <ClCompile Include="firstfloor.cpp">
       <Filter>Source Files\objects\house</Filter>
     </ClCompile>
+    <ClCompile Include="skybox.cpp">
+      <Filter>Source Files\objects\other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="groundfloor.h">
       <Filter>Header Files\objects\house</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>Header Files\objects\other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
