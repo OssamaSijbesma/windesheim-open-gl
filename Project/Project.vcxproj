@@ -131,6 +131,7 @@
     <ClCompile Include="bikeframe.cpp" />
     <ClCompile Include="bush.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="canopy.cpp" />
     <ClCompile Include="chickenbase.cpp" />
     <ClCompile Include="chickenbody.cpp" />
     <ClCompile Include="chickenleg.cpp" />
@@ -145,6 +146,8 @@
     <ClCompile Include="objectmanager.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="pavement.cpp" />
+    <ClCompile Include="pole.cpp" />
+    <ClCompile Include="roof.cpp" />
     <ClCompile Include="skybox.cpp" />
     <ClCompile Include="slide.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -155,6 +158,7 @@
     <ClInclude Include="bikeframe.h" />
     <ClInclude Include="bush.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="canopy.h" />
     <ClInclude Include="chickenbase.h" />
     <ClInclude Include="chickenbody.h" />
     <ClInclude Include="chickenleg.h" />
@@ -168,7 +172,9 @@
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objloader.h" />
     <ClInclude Include="pavement.h" />
+    <ClInclude Include="pole.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="roof.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="slide.h" />
     <ClInclude Include="wheel.h" />

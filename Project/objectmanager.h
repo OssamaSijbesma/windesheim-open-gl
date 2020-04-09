@@ -24,7 +24,8 @@ public:
 	std::vector<object*> get_objects();
 	void init_world();
 private:
-	std::vector<object*>* create_house();
+	std::vector<object*>* create_other();
+	std::vector<object*>* create_house(float x, float z);
 	std::vector<object*>* create_bike(float x, float z);
 	std::vector<object*>* create_chicken(float x, float z);
 	std::vector<object*>* create_floor();

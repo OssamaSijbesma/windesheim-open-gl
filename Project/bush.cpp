@@ -25,7 +25,7 @@ texture* bush::get_texture()
 	if (_texture == nullptr)
 	{
 		_texture = new texture();
-		_texture->texture_id = loadBMP("Textures/grass.bmp");
+		_texture->texture_id = loadBMP("Textures/bush.bmp");
 		_texture->active = true;
 	}
 

@@ -67,6 +67,15 @@
     <ClCompile Include="skybox.cpp">
       <Filter>Source Files\objects\other</Filter>
     </ClCompile>
+    <ClCompile Include="roof.cpp">
+      <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
+    <ClCompile Include="canopy.cpp">
+      <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
+    <ClCompile Include="pole.cpp">
+      <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -120,9 +129,6 @@
     <ClInclude Include="objloader.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
-    <ClInclude Include="bush.h">
-      <Filter>Header Files\objects\house</Filter>
-    </ClInclude>
     <ClInclude Include="firstfloor.h">
       <Filter>Header Files\objects\house</Filter>
     </ClInclude>
@@ -131,6 +137,18 @@
     </ClInclude>
     <ClInclude Include="skybox.h">
       <Filter>Header Files\objects\other</Filter>
+    </ClInclude>
+    <ClInclude Include="roof.h">
+      <Filter>Header Files\objects\house</Filter>
+    </ClInclude>
+    <ClInclude Include="bush.h">
+      <Filter>Header Files\objects\house</Filter>
+    </ClInclude>
+    <ClInclude Include="canopy.h">
+      <Filter>Header Files\objects\house</Filter>
+    </ClInclude>
+    <ClInclude Include="pole.h">
+      <Filter>Header Files\objects\house</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

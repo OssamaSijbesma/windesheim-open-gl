@@ -25,7 +25,7 @@ texture* firstfloor::get_texture()
 	if (_texture == nullptr)
 	{
 		_texture = new texture();
-		_texture->texture_id = loadBMP("Textures/pavement.bmp");
+		_texture->texture_id = loadBMP("Textures/planks_vertical.bmp");
 		_texture->active = true;
 	}
 

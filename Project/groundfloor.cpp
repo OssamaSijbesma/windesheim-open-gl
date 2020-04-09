@@ -25,7 +25,7 @@ texture* groundfloor::get_texture()
 	if (_texture == nullptr)
 	{
 		_texture = new texture();
-		_texture->texture_id = loadBMP("Textures/pavement.bmp");
+		_texture->texture_id = loadBMP("Textures/planks_horizontal.bmp");
 		_texture->active = true;
 	}
 
