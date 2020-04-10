@@ -1,16 +1,18 @@
 #pragma once
 #include "object.h"
 
-class plane : public object
+class aircraft : public object
 {
 public:
-	plane();
+	aircraft();
 	const virtual vao& get_vao(GLuint shader_id) const;
 	virtual material* get_material();
 	virtual texture* get_texture();
+	virtual void animate();
 
 private:
-	static material* mat;
-	static texture* tex;
+	static vao* _vao;
+	static material* _material;
+	static texture* _texture;
 };
 

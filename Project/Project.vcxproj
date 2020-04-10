@@ -146,6 +146,7 @@
     <ClCompile Include="objectmanager.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="pavement.cpp" />
+    <ClCompile Include="aircraft.cpp" />
     <ClCompile Include="pole.cpp" />
     <ClCompile Include="roof.cpp" />
     <ClCompile Include="skybox.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objloader.h" />
     <ClInclude Include="pavement.h" />
+    <ClInclude Include="aircraft.h" />
     <ClInclude Include="pole.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="roof.h" />

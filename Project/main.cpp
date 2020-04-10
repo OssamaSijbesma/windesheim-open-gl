@@ -14,7 +14,6 @@
 #include "object.h"
 
 #include "camera.h"
-#include "plane.h"
 #include <list>
 #include "objectmanager.h"
 

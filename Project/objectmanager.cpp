@@ -16,6 +16,7 @@
 #include "roof.h"
 #include "canopy.h"
 #include "pole.h"
+#include "aircraft.h"
 
 objectmanager::objectmanager()
 {
@@ -55,16 +56,27 @@ void objectmanager::init_world()
     
     std::vector<object*>* house3 = create_house(32.5, 18);
     objects.insert(objects.end(), house3->begin(), house3->end());
+    
+    std::vector<object*>* other = create_other();
+    objects.insert(objects.end(), other->begin(), other->end());
 }
 
 std::vector<object*>* objectmanager::create_other()
 {
+    vector<object*>* other = new vector<object*>();
+
     object* cl = new football();
     cl->scale(0.2f);
     cl->position(16.0f, 0.2f, 31.0f);
-    //house->push_back(cl);
+    other->push_back(cl);
 
-    return nullptr;
+    object* p = new aircraft();
+    p->scale(0.2f);
+    p->rotate_y(225);
+    p->position(70.0f, 25.0f, 70.0f);
+    other->push_back(p);
+
+    return other;
 }
 
 vector<object*>* objectmanager::create_house(float x, float z)
