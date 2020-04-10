@@ -6,7 +6,7 @@ texture* skybox::_texture = nullptr;
 skybox::skybox()
 {
 	geo_type = cube_skybox;
-	shader = lambert;
+	shader = sky;
 }
 
 material* skybox::get_material()

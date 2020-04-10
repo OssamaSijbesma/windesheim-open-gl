@@ -29,6 +29,7 @@ unsigned const int DELTA_TIME = 10;
 
 const char* phongfragshader_name = "phongfragmentshader.fsh";
 const char* lambertfragshader_name = "lambertfragmentshader.fsh";
+const char* skyfragshader_name = "skyfragmentshader.fsh";
 const char* vertexshader_name = "vertexshader.vsh";
 
 //--------------------------------------------------------------------------------
@@ -36,16 +37,16 @@ const char* vertexshader_name = "vertexshader.vsh";
 //--------------------------------------------------------------------------------
 
 // Shader IDs
-GLuint shader_id[2];
+GLuint shader_id[3];
 
 // Uniform ID's
-GLuint uniform_mv[2];
-GLuint uniform_projection[2];
-GLuint uniform_ambient[2];
-GLuint uniform_diffuse[2];
-GLuint uniform_specular[2];
-GLuint uniform_power[2];
-GLuint uniform_texture[2];
+GLuint uniform_mv[3];
+GLuint uniform_projection[3];
+GLuint uniform_ambient[3];
+GLuint uniform_diffuse[3];
+GLuint uniform_specular[3];
+GLuint uniform_power[3];
+GLuint uniform_texture[3];
 
 camera _camera;
 objectmanager _objectmanager;
@@ -171,7 +172,11 @@ void InitShaders()
 
     char* lambertfragshader = glsl::readFile(lambertfragshader_name);
     GLuint lfsh_id = glsl::makeFragmentShader(lambertfragshader);
-    shader_id[1] = glsl::makeShaderProgram(vsh_id, lfsh_id);
+    shader_id[1] = glsl::makeShaderProgram(vsh_id, lfsh_id);    
+    
+    char* skyfragshader = glsl::readFile(skyfragshader_name);
+    GLuint sbfsh_id = glsl::makeFragmentShader(skyfragshader);
+    shader_id[2] = glsl::makeShaderProgram(vsh_id, sbfsh_id);
 }
 
 
@@ -184,7 +189,7 @@ void InitBuffers()
 {
     _objectmanager.init_world();
 
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
     {
         // Make uniform vars
         uniform_mv[i] = glGetUniformLocation(shader_id[i], "mv");

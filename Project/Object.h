@@ -11,7 +11,7 @@
 
 using namespace std;
 
-enum shader_type { phong, lambert };
+enum shader_type { phong, lambert, sky };
 
 struct material {
 	glm::vec3 ambient_color;	// Ambient lighting, simulates light from other sources.

@@ -208,6 +208,9 @@
     <None Include="phongfragmentshader.fsh">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="skyfragmentshader.fsh">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project.rc" />
