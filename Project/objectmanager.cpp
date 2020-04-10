@@ -50,8 +50,11 @@ void objectmanager::init_world()
     std::vector<object*>* house = create_house(32.5,2);
     objects.insert(objects.end(), house->begin(), house->end());
 
-    std::vector<object*>* house2 = create_house(32.5, 12);
-    objects.insert(objects.end(), house2->begin(), house2->end());
+    std::vector<object*>* house2 = create_house(32.5, 10);
+    objects.insert(objects.end(), house2->begin(), house2->end());    
+    
+    std::vector<object*>* house3 = create_house(32.5, 18);
+    objects.insert(objects.end(), house3->begin(), house3->end());
 }
 
 std::vector<object*>* objectmanager::create_other()
