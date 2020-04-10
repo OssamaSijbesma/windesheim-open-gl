@@ -43,18 +43,6 @@
     <ClCompile Include="football.cpp">
       <Filter>Source Files\objects\other</Filter>
     </ClCompile>
-    <ClCompile Include="geometrymanager.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="objectmanager.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="objloader.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="bush.cpp">
       <Filter>Source Files\objects\house</Filter>
     </ClCompile>
@@ -75,6 +63,18 @@
     </ClCompile>
     <ClCompile Include="pole.cpp">
       <Filter>Source Files\objects\house</Filter>
+    </ClCompile>
+    <ClCompile Include="geometrymanager.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objectmanager.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objloader.cpp">
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

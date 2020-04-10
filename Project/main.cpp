@@ -27,6 +27,7 @@ using namespace std;
 const int WIDTH = 1280, HEIGHT = 720;
 unsigned const int DELTA_TIME = 10;
 
+// Shaders
 const char* phongfragshader_name = "phongfragmentshader.fsh";
 const char* lambertfragshader_name = "lambertfragmentshader.fsh";
 const char* skyfragshader_name = "skyfragmentshader.fsh";
@@ -70,6 +71,7 @@ void KeyboardProxy(unsigned char key, int a, int b)
     if (key == 27)
         glutExit();
 
+    // Send pressed key to the camera
     _camera.process_input(key, a, b);
 }
 
@@ -148,7 +150,7 @@ void InitGlutGlew(int argc, char** argv)
     glutSetOption(GLUT_MULTISAMPLE, 8);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Project OpenGL");
+    glutCreateWindow("Project OpenGL: Reigerstraat 9 Heerenveen");
     glutDisplayFunc(Render);
     glutKeyboardFunc(KeyboardProxy);
     glutTimerFunc(DELTA_TIME, Render, 0);
