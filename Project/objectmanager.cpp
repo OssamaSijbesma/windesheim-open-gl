@@ -48,14 +48,11 @@ void objectmanager::init_world()
     std::vector<object*>* bike = create_bike(1.5, 70);
     objects.insert(objects.end(), bike->begin(), bike->end());
 
-    std::vector<object*>* house = create_house(32.5,2);
-    objects.insert(objects.end(), house->begin(), house->end());
-
-    std::vector<object*>* house2 = create_house(32.5, 10);
-    objects.insert(objects.end(), house2->begin(), house2->end());    
+    std::vector<object*>* terrace_west = create_terrace(32.5, 2, East, 9);
+    objects.insert(objects.end(), terrace_west->begin(), terrace_west->end());
     
-    std::vector<object*>* house3 = create_house(32.5, 18);
-    objects.insert(objects.end(), house3->begin(), house3->end());
+    std::vector<object*>* terrace_east = create_terrace(-10.5, 2, West, 7);
+    objects.insert(objects.end(), terrace_east->begin(), terrace_east->end());
     
     std::vector<object*>* other = create_other();
     objects.insert(objects.end(), other->begin(), other->end());
@@ -79,7 +76,23 @@ std::vector<object*>* objectmanager::create_other()
     return other;
 }
 
-vector<object*>* objectmanager::create_house(float x, float z)
+std::vector<object*>* objectmanager::create_terrace(float x, float z, direction d, int amount)
+{
+    vector<object*>* terrace = new vector<object*>();
+
+   
+    for (int i = 0; i < amount; i++)
+    {
+        std::vector<object*>* house = create_house(x, z+i*8, d);
+        terrace->insert(terrace->end(), house->begin(), house->end());
+    }
+
+    return terrace;
+}
+
+
+
+vector<object*>* objectmanager::create_house(float x, float z, direction d)
 {
     vector<object*>* house = new vector<object*>();
 
@@ -90,7 +103,10 @@ vector<object*>* objectmanager::create_house(float x, float z)
         if (width == -4 || width == 4)
         {
             placeholder = new pole();
-            placeholder->position(x - 9, 3, z - width);
+            if (d == East)
+                placeholder->position(x - 9, 3, z - width);
+            else
+                placeholder->position(x + 9, 3, z - width);
             placeholder->scale_y(2);
             placeholder->scale_x(0.2);
             placeholder->scale_z(0.2);
@@ -100,7 +116,10 @@ vector<object*>* objectmanager::create_house(float x, float z)
         // Create bush in front of the house
         if (width != 1 && width != 0) {
             placeholder = new bush();
-            placeholder->position(x - 9, 0.5, z - width);
+            if (d == East)
+                placeholder->position(x - 9, 0.5, z - width);
+            else
+                placeholder->position(x + 9, 0.5, z - width);
             placeholder->scale(0.5);
             house->push_back(placeholder);
         }
@@ -109,7 +128,10 @@ vector<object*>* objectmanager::create_house(float x, float z)
         {
             // Create canpoy above the porch
             placeholder = new canopy();
-            placeholder->position(x - 8, 5.5, z - width);
+            if (d == East)
+                placeholder->position(x - 8, 5.5, z - width);
+            else
+                placeholder->position(x + 8, 5.5, z - width);
             placeholder->scale_x(2);
             placeholder->scale_y(0.5);
             house->push_back(placeholder);
@@ -156,6 +178,11 @@ vector<object*>* objectmanager::create_house(float x, float z)
     }
 
     return house;
+}
+
+std::vector<object*>* objectmanager::create_garage(float x, float z, direction d)
+{
+    return nullptr;
 }
 
 vector<object*>* objectmanager::create_bike(float x, float z)

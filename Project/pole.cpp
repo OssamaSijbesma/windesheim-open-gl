@@ -13,10 +13,8 @@ material* pole::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.105, 0.105, 0.105);
-		_material->diffuse_color = glm::vec3(0.196, 0.196, 0.196);
-		_material->specular = glm::vec3(0.3f);
-		_material->power = 1024;
+		_material->ambient_color = glm::vec3(0.7, 0.621, 0.429);
+		_material->diffuse_color = glm::vec3(0.696, 0.676, 0.480);
 	}
 
 	return _material;
