@@ -5,8 +5,11 @@ camera::camera()
 {
 	view_mode = false;
 	yaw = 0.0f;
+	old_yaw = 0.0f;
 	pitch = 0.0f;
-	position = new glm::vec3(0.0f, 2.0f, 0.0f);
+	old_yaw = 0.0f;
+	position = new glm::vec3(0.0f, 1.8f, 0.0f);
+	old_position = new glm::vec3();
 	direction = new glm::vec3(0.0f, 0.0f, 0.0f);
 	view = new glm::mat4();
 }
@@ -14,6 +17,7 @@ camera::camera()
 camera::~camera()
 {
 	delete position;
+	delete old_position;
 	delete direction;
 	delete view;
 }
@@ -45,9 +49,16 @@ void camera::process_input(unsigned char key, int a, int b)
 	{
 	case'c':
 		view_mode = !view_mode;
-		*position = (view_mode) ? glm::vec3(0.0f, 30.0f, 0.0f) : glm::vec3(0.0f, 2.0f, 0.0f);
-		pitch = (view_mode) ? -50 : 0;
-		yaw = (view_mode) ? 50 : 0;
+
+		if (view_mode) {
+			*old_position = *position;
+			old_pitch = pitch;
+			old_yaw = yaw;
+		}
+
+		*position = (view_mode) ? glm::vec3(-10.0f, 40.0f, -30.0f) : *old_position;
+		pitch = (view_mode) ? -50 : old_pitch;
+		yaw = (view_mode) ? 50 : old_yaw;
 		break;
 
 	case'w': // Forward

@@ -33,64 +33,57 @@ std::vector<object*> objectmanager::get_objects()
 
 void objectmanager::init_world()
 {
-    object* cl = new skybox();
-    cl->scale(50);
-    cl->position(10, 0, 30);
-    cl->rotate_z(180);
-    objects.push_back(cl);
+    // Add skybox
+    objects.push_back(create_skybox());
 
+    // Add floor
     std::vector<object*>* floor = create_floor();
     objects.insert(objects.end(), floor->begin(), floor->end());
 
-    std::vector<object*>* chicken = create_chicken(14, 15);
-    objects.insert(objects.end(), chicken->begin(), chicken->end());
-
-    std::vector<object*>* bike = create_bike(1.5, 70);
-    objects.insert(objects.end(), bike->begin(), bike->end());
-
-    std::vector<object*>* terrace_west = create_terrace(32.5, 2, East, 9);
+    // Add terraces
+    std::vector<object*>* terrace_west = create_terrace(22, 0, East, 9);
     objects.insert(objects.end(), terrace_west->begin(), terrace_west->end());
     
-    std::vector<object*>* terrace_east = create_terrace(-10.5, 2, West, 7);
+    std::vector<object*>* terrace_east = create_terrace(-22, -8, West, 7);
     objects.insert(objects.end(), terrace_east->begin(), terrace_east->end());
+
+    // Add garages
+    std::vector<object*>* garage = create_garage(-14, 21, North, 5);
+    objects.insert(objects.end(), garage->begin(), garage->end());    
     
-    std::vector<object*>* other = create_other();
-    objects.insert(objects.end(), other->begin(), other->end());
-}
+    std::vector<object*>* garage2 = create_garage(-10, 37, West, 4);
+    objects.insert(objects.end(), garage2->begin(), garage2->end());
 
-std::vector<object*>* objectmanager::create_other()
-{
-    vector<object*>* other = new vector<object*>();
+    // Add chicken
+    std::vector<object*>* chicken = create_chicken(3, -20);
+    objects.insert(objects.end(), chicken->begin(), chicken->end());
 
-    object* cl = new football();
-    cl->scale(0.2f);
-    cl->position(16.0f, 0.2f, 31.0f);
-    other->push_back(cl);
+    // Add bike
+    std::vector<object*>* bike = create_bike(10, 40);
+    objects.insert(objects.end(), bike->begin(), bike->end());
+    
+    // Add football
+    objects.push_back(create_football(5, 4));
 
-    object* p = new aircraft();
-    p->scale(0.2f);
-    p->rotate_y(225);
-    p->position(70.0f, 25.0f, 70.0f);
-    other->push_back(p);
-
-    return other;
+    // Add aircraft
+    objects.push_back(create_aircraft(0, 0));
 }
 
 std::vector<object*>* objectmanager::create_terrace(float x, float z, direction d, int amount)
 {
     vector<object*>* terrace = new vector<object*>();
+    std::vector<object*>* house;
 
-   
+    int start_z = amount * 4 - 3;
+
     for (int i = 0; i < amount; i++)
     {
-        std::vector<object*>* house = create_house(x, z+i*8, d);
+        house = create_house(x, z + i * 8 - start_z, d);
         terrace->insert(terrace->end(), house->begin(), house->end());
     }
 
     return terrace;
 }
-
-
 
 vector<object*>* objectmanager::create_house(float x, float z, direction d)
 {
@@ -104,9 +97,9 @@ vector<object*>* objectmanager::create_house(float x, float z, direction d)
         {
             placeholder = new pole();
             if (d == East)
-                placeholder->position(x - 9, 3, z - width);
+                placeholder->position(x - 9, 3, z - width + 0.5);
             else
-                placeholder->position(x + 9, 3, z - width);
+                placeholder->position(x + 9, 3, z - width + 0.5);
             placeholder->scale_y(2);
             placeholder->scale_x(0.2);
             placeholder->scale_z(0.2);
@@ -117,14 +110,14 @@ vector<object*>* objectmanager::create_house(float x, float z, direction d)
         if (width != 1 && width != 0) {
             placeholder = new bush();
             if (d == East)
-                placeholder->position(x - 9, 0.5, z - width);
+                placeholder->position(x - 9, 0.5, z - width + 0.5);
             else
-                placeholder->position(x + 9, 0.5, z - width);
+                placeholder->position(x + 9, 0.5, z - width + 0.5);
             placeholder->scale(0.5);
             house->push_back(placeholder);
         }
 
-        if (width % 2 == 0)
+        if (width % 2 == 0 )
         {
             // Create canpoy above the porch
             placeholder = new canopy();
@@ -180,9 +173,64 @@ vector<object*>* objectmanager::create_house(float x, float z, direction d)
     return house;
 }
 
-std::vector<object*>* objectmanager::create_garage(float x, float z, direction d)
+std::vector<object*>* objectmanager::create_garage(float x, float z, direction d, int amount)
 {
-    return nullptr;
+    vector<object*>* garage = new vector<object*>();
+    object* placeholder;
+
+    int start_length = amount * 2 - 2;
+
+    for (int i = 0; i < amount; i++)
+    {
+        // Create canpoy above the porch
+        placeholder = new canopy();
+
+        switch (d)
+        {
+        case North: placeholder->position(x, 5.5, z + i * 4); break;
+        case East: placeholder->position(x - i * 4, 5.5, z); break;
+        case South: placeholder->position(x, 5.5, z - i * 4); break;
+        case West: placeholder->position(x + i * 4, 5.5, z); break;
+        }
+
+        placeholder->scale_x(2);
+        placeholder->scale_z(2);
+        placeholder->scale_y(0.5);
+        garage->push_back(placeholder);
+
+
+        for (int j = -2; j < 2; j++)
+        {
+            placeholder = new bush();
+            placeholder->scale(0.5);
+
+            switch (d)
+            {
+            case North: placeholder->position(x + 1, 0.5, z + i * 4 + j); break;
+            case East: placeholder->position(x - i * 4 + j, 0.5, z + 1); break;
+            case South: placeholder->position(x - 1, 0.5, z + i * 4 + j); break;
+            case West: placeholder->position(x + i * 4 + j, 0.5, z - 1); break;
+            }
+
+            garage->push_back(placeholder);
+        }
+
+        placeholder = new pole();
+
+        switch (d)
+        {
+        case West:placeholder->position(x + i * 4, 3, z - 1); break;
+        case East: placeholder->position(x + i * 4, 3, z + 1); break;
+        case North: placeholder->position(x + 1, 3, z + i * 4); break;
+        case South: placeholder->position(x - 1, 3, z + i* 4); break;
+        }
+
+        placeholder->scale_y(2);
+        placeholder->scale_x(0.2);
+        placeholder->scale_z(0.2);
+        garage->push_back(placeholder);
+    }    
+    return garage;
 }
 
 vector<object*>* objectmanager::create_bike(float x, float z)
@@ -265,9 +313,39 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
     return chicken;
 }
 
+object* objectmanager::create_football(float x, float z)
+{
+    object* cl = new football();
+    cl->scale(0.2f);
+    cl->position(x, 0.2f, z);
+    return cl;
+}
+
+object* objectmanager::create_aircraft(float x, float z)
+{
+    object* p = new aircraft();
+    p->scale(0.2f);
+    p->rotate_y(225);
+    p->position(x, 25.0f, z);
+    return p;
+}
+
+object* objectmanager::create_skybox()
+{
+    object* cl = new skybox();
+    cl->scale(50);
+    cl->position(0, 0, 0);
+    cl->rotate_z(180);
+    return cl;
+}
+
 std::vector<object*>* objectmanager::create_floor()
 {
     vector<object*>* floor_tiles = new vector<object*>();
+
+    int start_z = sizeof(floor) / sizeof(floor[0]) - 1;
+    int start_x = sizeof(floor[0]) / sizeof(int) - 1;
+
 
     // Create the floor based on a two dimensional array from the header
     for (int z = 0; z < sizeof(floor) / sizeof(floor[0]); z++)
@@ -282,7 +360,7 @@ std::vector<object*>* objectmanager::create_floor()
             case 2: tile = new woodchips(); break;
             }
 
-            tile->position(x * 2.0f, 0, z * 2.0f);
+            tile->position(x * 2.0f - start_x, 0, z * 2.0f - start_z);
             floor_tiles->push_back(tile);
         }
 

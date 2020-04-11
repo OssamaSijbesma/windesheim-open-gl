@@ -50,6 +50,6 @@ void football::animate()
 
 	update_model();
 
-	if (_position.z > 40 || _position.z < 30)
+	if (_position.z > 10 || _position.z < 0)
 		direction = !direction;
 }

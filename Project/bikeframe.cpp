@@ -45,8 +45,8 @@ texture* bikeframe::get_texture()
 
 void bikeframe::animate()
 {
-	if (_position.z < 0)
-		_position.z = 70;
+	if (_position.z < -50)
+		_position.z = 50;
 
 	_position.z -= 0.05;
 	update_model();

@@ -44,8 +44,10 @@ texture* wheel::get_texture()
 
 void wheel::animate()
 {
-	if (_position.z < 0)
-		_position.z = 70;
+
+	
+	if (_position.z < -50)
+		_position.z = 50;
 
 	_position.z -= 0.05;
 	_rotation.z -= 1;

@@ -46,14 +46,19 @@ texture* aircraft::get_texture()
 
 void aircraft::animate()
 {
-	if (_position.z < -20)
-	{
-		_position.z = 70;
-		_position.x = 70;
-	}
 
+	*model = glm::translate(*model, glm::vec3(0.0, 0.0, 3.0));
+	*model = glm::rotate(*model, glm::radians(0.8f), glm::vec3(0.0, 1.0, 0.0));
+
+	/*
+	if (_position.z < -60)
+	{
+		_position.z = 60;
+		_position.x = 60;
+	}
 
 	_position.z -= 0.05;
 	_position.x -= 0.05;
 	update_model();
+	*/
 }
