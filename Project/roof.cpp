@@ -13,8 +13,8 @@ material* roof::get_material()
 	if (_material == nullptr)
 	{
 		_material = new material();
-		_material->ambient_color = glm::vec3(0.07, 0.23, 0.07);
-		_material->diffuse_color = glm::vec3(0.13, 0.51, 0.24);
+		_material->ambient_color = glm::vec3(0.374, 0.260, 0.158);
+		_material->diffuse_color = glm::vec3(0.474, 0.298, 0.149);
 	}
 
 	return _material;
