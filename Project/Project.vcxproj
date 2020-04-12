@@ -183,6 +183,7 @@
     <ClInclude Include="woodchips.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blinnphongfragmentshader.fsh" />
     <None Include="lambertfragmentshader.fsh" />
     <None Include="skyfragmentshader.fsh" />
     <None Include="vertexshader.vsh">
