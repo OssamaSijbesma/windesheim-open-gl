@@ -7,6 +7,7 @@ geometrymanager::geometrymanager()
 
 geometrymanager* geometrymanager::get_instance()
 {
+    // Return the singleton instance
     if (instance == nullptr)
         instance = new geometrymanager();
     return instance;
@@ -14,6 +15,7 @@ geometrymanager* geometrymanager::get_instance()
 
 vao geometrymanager::get_vao(GLuint shader_id, geometry_type type)
 {
+    // Get the vao if it excists, otherwise create it
     if (vaos[type].id == 0)
     {
         vao temp;

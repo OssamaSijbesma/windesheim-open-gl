@@ -10,6 +10,8 @@ chickenbody::chickenbody()
 
 const vao& chickenbody::get_vao(GLuint shader_id) const
 {
+	// Singleton variable with lazy initialization
+
 	if (_vao == nullptr)
 	{
 		_vao = new vao();
@@ -21,6 +23,8 @@ const vao& chickenbody::get_vao(GLuint shader_id) const
 
 material* chickenbody::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -33,6 +37,8 @@ material* chickenbody::get_material()
 
 texture* chickenbody::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();

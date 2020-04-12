@@ -10,6 +10,8 @@ wheel::wheel()
 
 const vao& wheel::get_vao(GLuint shader_id) const
 {
+	// Singleton variable with lazy initialization
+
 	if (_vao == nullptr)
 	{
 		_vao = new vao();
@@ -21,6 +23,8 @@ const vao& wheel::get_vao(GLuint shader_id) const
 
 material* wheel::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -33,6 +37,8 @@ material* wheel::get_material()
 
 texture* wheel::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();
@@ -44,7 +50,7 @@ texture* wheel::get_texture()
 
 void wheel::animate()
 {
-
+	// An animation where the wheel rotates and moves forward
 	
 	if (_position.z < -50)
 		_position.z = 50;

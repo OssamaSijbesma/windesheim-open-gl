@@ -76,6 +76,7 @@ std::vector<object*>* objectmanager::create_terrace(float x, float z, direction 
 
     int start_z = amount * 4 - 3;
 
+    // Create a terrace with the defined amount
     for (int i = 0; i < amount; i++)
     {
         house = create_house(x, z + i * 8 - start_z, d);
@@ -182,7 +183,7 @@ std::vector<object*>* objectmanager::create_garage(float x, float z, direction d
 
     for (int i = 0; i < amount; i++)
     {
-        // Create canpoy above the porch
+        // Create canopy above the porch
         placeholder = new canopy();
 
         switch (d)
@@ -201,6 +202,7 @@ std::vector<object*>* objectmanager::create_garage(float x, float z, direction d
 
         for (int j = -2; j < 2; j++)
         {
+            // Create 4 bushes for every canopy
             placeholder = new bush();
             placeholder->scale(0.5);
 
@@ -215,6 +217,8 @@ std::vector<object*>* objectmanager::create_garage(float x, float z, direction d
             garage->push_back(placeholder);
         }
 
+
+        // Create a pole for every canopy
         placeholder = new pole();
 
         switch (d)
@@ -265,6 +269,7 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
 {
     vector<object*>* chicken = new vector<object*>();
 
+    // Create chicken legs
     object* chickenleg1 = new chickenleg();
     chickenleg1->position(x + 0.6f, 0.8f, z);
     chicken->push_back(chickenleg1);
@@ -273,6 +278,7 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
     chickenleg2->position(x - 0.6f, 0.8f, z);
     chicken->push_back(chickenleg2);
 
+    // Create the external body of the chicken
     object* chickenbody1 = new chickenbody();
     chickenbody1->scale(3);
     chickenbody1->rotate_y(90);
@@ -285,6 +291,7 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
     chickenbody2->scale(3);
     chicken->push_back(chickenbody2);
 
+    // Create the internal body of the chicken
     object* chickenbase1 = new chickenbase();
     chickenbase1->position(x, 1.8f, z);
     chickenbase1->scale_y(0.2f);
@@ -303,6 +310,7 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
     chickenbase3->scale_z(0.5f);
     chicken->push_back(chickenbase3);
 
+    // Create a slide
     object* chickenslide = new slide();
     chickenslide->position(x, 1.5f, z + 3.3f);
     chickenslide->rotate_y(-90);
@@ -315,6 +323,7 @@ std::vector<object*>* objectmanager::create_chicken(float x, float z)
 
 object* objectmanager::create_football(float x, float z)
 {
+    // Create a football which goes back and forward
     object* cl = new football();
     cl->scale(0.2f);
     cl->position(x, 0.2f, z);
@@ -323,6 +332,7 @@ object* objectmanager::create_football(float x, float z)
 
 object* objectmanager::create_aircraft(float x, float z)
 {
+    // Create an aircraft which circles above the scene
     object* p = new aircraft();
     p->scale(0.2f);
     p->rotate_y(225);
@@ -332,9 +342,9 @@ object* objectmanager::create_aircraft(float x, float z)
 
 object* objectmanager::create_skybox()
 {
+    // Create the skybox
     object* cl = new skybox();
     cl->scale(50);
-    cl->position(0, 0, 0);
     cl->rotate_z(180);
     return cl;
 }
@@ -343,9 +353,9 @@ std::vector<object*>* objectmanager::create_floor()
 {
     vector<object*>* floor_tiles = new vector<object*>();
 
+    // Calculate the start positions to get the scene centered
     int start_z = sizeof(floor) / sizeof(floor[0]) - 1;
     int start_x = sizeof(floor[0]) / sizeof(int) - 1;
-
 
     // Create the floor based on a two dimensional array from the header
     for (int z = 0; z < sizeof(floor) / sizeof(floor[0]); z++)

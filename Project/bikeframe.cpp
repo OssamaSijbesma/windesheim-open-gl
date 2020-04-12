@@ -20,6 +20,8 @@ const vao& bikeframe::get_vao(GLuint shader_id) const
 
 material* bikeframe::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -34,6 +36,8 @@ material* bikeframe::get_material()
 
 texture* bikeframe::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();
@@ -45,6 +49,8 @@ texture* bikeframe::get_texture()
 
 void bikeframe::animate()
 {
+	// An animation where the bike moves forward
+
 	if (_position.z < -50)
 		_position.z = 50;
 

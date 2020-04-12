@@ -9,6 +9,8 @@ slide::slide()
 
 const vao& slide::get_vao(GLuint shader_id) const
 {
+	// Singleton variable with lazy initialization
+
 	if (_vao == nullptr)
 	{
 		_vao = new vao();
@@ -20,6 +22,8 @@ const vao& slide::get_vao(GLuint shader_id) const
 
 material* slide::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -34,6 +38,8 @@ material* slide::get_material()
 
 texture* slide::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();

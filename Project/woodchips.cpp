@@ -11,6 +11,8 @@ woodchips::woodchips()
 
 material* woodchips::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -23,6 +25,8 @@ material* woodchips::get_material()
 
 texture* woodchips::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();

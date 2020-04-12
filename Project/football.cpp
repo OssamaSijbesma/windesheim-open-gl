@@ -35,6 +35,7 @@ texture* football::get_texture()
 
 void football::animate()
 {
+	// An animation where the ball goes back and forward
 	if (direction)
 	{
 		_rotation.x += 1.5;

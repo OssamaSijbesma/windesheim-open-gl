@@ -11,6 +11,8 @@ pavement::pavement()
 
 material* pavement::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -23,6 +25,8 @@ material* pavement::get_material()
 
 texture* pavement::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();

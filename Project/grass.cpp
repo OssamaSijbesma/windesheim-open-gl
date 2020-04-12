@@ -11,6 +11,8 @@ grass::grass() : object()
 
 material* grass::get_material()
 {
+	// Singleton variable with lazy initialization
+
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -23,6 +25,8 @@ material* grass::get_material()
 
 texture* grass::get_texture()
 {
+	// Singleton variable with lazy initialization
+
 	if (_texture == nullptr)
 	{
 		_texture = new texture();

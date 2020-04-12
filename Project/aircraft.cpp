@@ -10,6 +10,7 @@ aircraft::aircraft()
 
 const vao& aircraft::get_vao(GLuint shader_id) const
 {
+	// Singleton variable with lazy initialization
 	if (_vao == nullptr)
 	{
 		_vao = new vao();
@@ -21,6 +22,7 @@ const vao& aircraft::get_vao(GLuint shader_id) const
 
 material* aircraft::get_material()
 {
+	// Singleton variable with lazy initialization
 	if (_material == nullptr)
 	{
 		_material = new material();
@@ -35,6 +37,7 @@ material* aircraft::get_material()
 
 texture* aircraft::get_texture()
 {
+	// Singleton variable with lazy initialization
 	if (_texture == nullptr)
 	{
 		_texture = new texture();
@@ -46,6 +49,7 @@ texture* aircraft::get_texture()
 
 void aircraft::animate()
 {
+	// An animation where it circles above the scene.
 
 	*model = glm::translate(*model, glm::vec3(0.0, 0.0, 3.0));
 	*model = glm::rotate(*model, glm::radians(0.8f), glm::vec3(0.0, 1.0, 0.0));
